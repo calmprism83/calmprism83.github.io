@@ -1,0 +1,1683 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日大赛 每日爆料大赛 - 官方赛事平台,记录每一次创意挑战</title>
+<meta name="description" content="每日大赛每日爆料大赛官方网站,面向创作者与兴趣社区的每日创意赛事平台,汇聚每日挑战、作品展示、创作者故事与行业动态,打造值得信赖的高品质内容生态。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b2440'/%3E%3Cpath d='M18 40 L32 16 L46 40 L32 34 Z' fill='%23ffc63c'/%3E%3Ccircle cx='32' cy='48' r='4' fill='%23ff5a4e'/%3E%3C/svg%3E">
+<style>
+:root{
+  --db-bg:#101627;
+  --db-bg-2:#161f36;
+  --db-panel:#1b2540;
+  --db-panel-2:#202c4c;
+  --db-line:rgba(255,255,255,.09);
+  --db-text:#eef1f8;
+  --db-muted:#a3aec9;
+  --db-yellow:#ffc63c;
+  --db-red:#ff5a4e;
+  --db-cyan:#4fd6d0;
+  --db-purple:#8c7bff;
+  --db-radius:16px;
+  --db-shadow:0 18px 40px rgba(0,0,0,.35);
+  --db-sticky-h:88px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  background:var(--db-bg);
+  color:var(--db-text);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font-family:inherit}
+::selection{background:var(--db-yellow);color:#101627}
+.dbw-wrap{width:min(1180px,92%);margin:0 auto}
+.dbw-section{padding:74px 0}
+.dbw-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--db-yellow);font-weight:600;margin-bottom:14px;
+}
+.dbw-eyebrow::before{content:"";width:22px;height:2px;background:var(--db-yellow);display:inline-block}
+.dbw-h2{font-size:clamp(24px,3.4vw,36px);line-height:1.3;font-weight:800;letter-spacing:.01em}
+.dbw-h2 em{font-style:normal;color:var(--db-yellow)}
+.dbw-lead{color:var(--db-muted);font-size:15px;max-width:760px;margin-top:12px}
+.dbw-head-row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+
+/* ============ 吸顶区:公告条 + 页头 ============ */
+.dbw-sticky{position:sticky;top:0;z-index:80}
+.dbw-notice{
+  background:linear-gradient(90deg,var(--db-red),#ff8a3d 55%,var(--db-yellow));
+  color:#1a1206;font-size:13px;font-weight:700;
+}
+.dbw-notice-inner{display:flex;align-items:center;gap:12px;padding:8px 0;overflow:hidden}
+.dbw-notice-tag{
+  background:#1a1206;color:var(--db-yellow);font-size:11px;font-weight:800;
+  padding:2px 8px;border-radius:4px;letter-spacing:.08em;flex:none;
+}
+.dbw-notice-track{display:flex;gap:34px;white-space:nowrap;overflow:hidden;flex:1}
+.dbw-notice-item{opacity:.95}
+.dbw-notice-item b{text-decoration:underline;text-underline-offset:3px}
+.dbw-header{
+  background:rgba(16,22,39,.92);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--db-line);
+}
+.dbw-header-inner{display:flex;align-items:center;gap:26px;padding:14px 0}
+.dbw-logo{display:flex;align-items:center;gap:11px;flex:none}
+.dbw-logo-mark{
+  width:40px;height:40px;border-radius:11px;flex:none;
+  background:linear-gradient(140deg,var(--db-yellow),var(--db-red));
+  display:grid;place-items:center;font-weight:900;font-size:19px;color:#151103;
+  box-shadow:0 6px 16px rgba(255,198,60,.28);
+}
+.dbw-logo-txt strong{display:block;font-size:17px;letter-spacing:.04em;line-height:1.2}
+.dbw-logo-txt span{display:block;font-size:11px;color:var(--db-muted);letter-spacing:.14em}
+.dbw-nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.dbw-nav a{
+  font-size:14px;color:var(--db-muted);padding:7px 12px;border-radius:8px;
+  transition:.2s;font-weight:500;
+}
+.dbw-nav a:hover{color:var(--db-text);background:rgba(255,255,255,.07)}
+.dbw-search{position:relative;flex:none}
+.dbw-search input{
+  width:210px;background:rgba(255,255,255,.07);border:1px solid var(--db-line);
+  border-radius:10px;padding:9px 34px 9px 13px;color:var(--db-text);font-size:13.5px;outline:none;transition:.2s;
+}
+.dbw-search input:focus{border-color:var(--db-yellow);background:rgba(255,255,255,.1);width:250px}
+.dbw-search input::placeholder{color:#7d88a3}
+.dbw-search-go{
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  width:26px;height:26px;border-radius:7px;display:grid;place-items:center;color:var(--db-yellow);
+}
+.dbw-search-fb{
+  position:absolute;top:calc(100% + 8px);left:0;right:0;
+  background:var(--db-panel);border:1px solid var(--db-line);border-radius:10px;
+  padding:10px 12px;font-size:12.5px;color:var(--db-muted);box-shadow:var(--db-shadow);
+  display:none;
+}
+.dbw-search-fb.on{display:block}
+.dbw-search-fb b{color:var(--db-yellow)}
+.dbw-burger{display:none;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.07);place-items:center;flex:none}
+.dbw-burger span{display:block;width:18px;height:2px;background:var(--db-text);position:relative}
+.dbw-burger span::before,.dbw-burger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:var(--db-text)}
+.dbw-burger span::before{top:-6px}
+.dbw-burger span::after{top:6px}
+
+/* ============ 首屏 ============ */
+.dbw-hero{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(900px 420px at 12% -10%,rgba(140,123,255,.28),transparent 62%),
+    radial-gradient(800px 460px at 92% 8%,rgba(255,198,60,.18),transparent 60%),
+    linear-gradient(180deg,#141c31,#101627 70%);
+  border-bottom:1px solid var(--db-line);
+}
+.dbw-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center;padding:76px 0 64px}
+.dbw-hero-badge{
+  display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;
+  background:rgba(255,198,60,.13);color:var(--db-yellow);
+  border:1px solid rgba(255,198,60,.32);border-radius:999px;padding:6px 14px;margin-bottom:22px;
+}
+.dbw-hero-badge i{width:7px;height:7px;border-radius:50%;background:var(--db-red);box-shadow:0 0 0 4px rgba(255,90,78,.18);animation:dbwPulse 2s infinite}
+@keyframes dbwPulse{0%,100%{box-shadow:0 0 0 4px rgba(255,90,78,.18)}50%{box-shadow:0 0 0 9px rgba(255,90,78,.04)}}
+.dbw-hero h1{
+  font-size:clamp(36px,5.6vw,62px);line-height:1.12;font-weight:900;letter-spacing:-.01em;
+  background:linear-gradient(120deg,#fff 30%,var(--db-yellow) 78%,#ff8a3d);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.dbw-hero-sub{font-size:clamp(16px,2vw,20px);font-weight:700;margin-top:14px;color:#dfe5f6}
+.dbw-hero-intro{color:var(--db-muted);font-size:15px;margin-top:18px;max-width:600px}
+.dbw-hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.dbw-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:12px 24px;border-radius:11px;font-size:14.5px;font-weight:700;transition:.22s;
+}
+.dbw-btn-primary{background:linear-gradient(120deg,var(--db-yellow),#ff9b3d);color:#191203;box-shadow:0 10px 24px rgba(255,198,60,.26)}
+.dbw-btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(255,198,60,.36)}
+.dbw-btn-ghost{border:1px solid rgba(255,255,255,.24);color:var(--db-text)}
+.dbw-btn-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4)}
+.dbw-stats{display:flex;gap:34px;margin-top:40px;flex-wrap:wrap}
+.dbw-stat strong{font-size:26px;font-weight:900;color:var(--db-yellow);letter-spacing:.01em}
+.dbw-stat span{display:block;font-size:12.5px;color:var(--db-muted);margin-top:2px}
+.dbw-hero-visual{position:relative}
+.dbw-hero-frame{
+  border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.14);
+  box-shadow:var(--db-shadow);background:var(--db-panel);
+}
+.dbw-hero-frame img{width:100%;aspect-ratio:16/10.4;object-fit:cover}
+.dbw-hero-float{
+  position:absolute;left:-18px;bottom:-20px;
+  background:var(--db-panel-2);border:1px solid var(--db-line);border-radius:13px;
+  padding:12px 16px;box-shadow:var(--db-shadow);display:flex;align-items:center;gap:11px;max-width:250px;
+}
+.dbw-hero-float .dbw-dot{width:32px;height:32px;border-radius:9px;flex:none;background:linear-gradient(135deg,var(--db-cyan),var(--db-purple));display:grid;place-items:center;font-size:15px}
+.dbw-hero-float p{font-size:12.5px;line-height:1.5;color:#cfd7ea}
+.dbw-hero-float p b{display:block;color:#fff;font-size:13px}
+
+/* ============ 关键词解析(长文) ============ */
+.dbw-about{background:var(--db-bg-2);border-bottom:1px solid var(--db-line)}
+.dbw-about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.dbw-about h3{font-size:17px;font-weight:800;margin:26px 0 10px;color:#fff;display:flex;align-items:center;gap:9px}
+.dbw-about h3::before{content:"";width:5px;height:16px;border-radius:3px;background:var(--db-yellow);flex:none}
+.dbw-about p{font-size:14.5px;color:#b8c2da;line-height:1.95;margin-bottom:12px;text-align:justify}
+.dbw-about p strong{color:var(--db-yellow);font-weight:700}
+.dbw-about-card{
+  background:linear-gradient(160deg,rgba(140,123,255,.16),rgba(79,214,208,.08));
+  border:1px solid rgba(140,123,255,.3);border-radius:var(--db-radius);padding:22px;margin-top:22px;
+}
+.dbw-about-card b{color:#fff}
+.dbw-about-card ul{list-style:none;margin-top:10px;display:grid;gap:8px}
+.dbw-about-card li{font-size:13.5px;color:#c3cde3;padding-left:20px;position:relative}
+.dbw-about-card li::before{content:"◆";position:absolute;left:0;color:var(--db-cyan);font-size:10px;top:5px}
+
+/* ============ 焦点内容 ============ */
+.dbw-focus-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:22px}
+.dbw-card{
+  background:var(--db-panel);border:1px solid var(--db-line);border-radius:var(--db-radius);
+  overflow:hidden;transition:.26s;position:relative;
+}
+.dbw-card:hover{transform:translateY(-4px);border-color:rgba(255,198,60,.4);box-shadow:var(--db-shadow)}
+.dbw-card-media{position:relative;overflow:hidden;background:#0c1120}
+.dbw-card-media img{width:100%;aspect-ratio:16/9;object-fit:cover;transition:.5s}
+.dbw-card:hover .dbw-card-media img{transform:scale(1.05)}
+.dbw-tag{
+  position:absolute;top:11px;left:11px;font-size:11px;font-weight:800;
+  background:rgba(16,22,39,.82);color:var(--db-yellow);
+  padding:4px 10px;border-radius:6px;letter-spacing:.04em;backdrop-filter:blur(4px);
+}
+.dbw-play{
+  position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;
+}
+.dbw-play i{
+  width:52px;height:52px;border-radius:50%;background:rgba(255,198,60,.92);
+  display:grid;place-items:center;opacity:0;transform:scale(.8);transition:.28s;
+}
+.dbw-play i::after{content:"";border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent #191203;margin-left:3px}
+.dbw-card:hover .dbw-play i{opacity:1;transform:scale(1)}
+.dbw-card-body{padding:16px 18px 18px}
+.dbw-card-body h3{font-size:16px;font-weight:700;line-height:1.5;margin-bottom:7px;color:#fff}
+.dbw-card-body p{font-size:13px;color:var(--db-muted);line-height:1.7;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dbw-card-meta{display:flex;align-items:center;gap:10px;margin-top:13px;font-size:12px;color:#8792ae;flex-wrap:wrap}
+.dbw-avatar{
+  width:24px;height:24px;border-radius:50%;flex:none;display:grid;place-items:center;
+  font-size:11px;font-weight:800;color:#141a2c;
+}
+.dbw-card-actions{display:flex;gap:8px;margin-left:auto;align-items:center}
+.dbw-act{
+  display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#98a3bd;
+  padding:3px 8px;border-radius:7px;transition:.2s;
+}
+.dbw-act:hover{background:rgba(255,255,255,.08);color:#fff}
+.dbw-act.liked{color:var(--db-red)}
+.dbw-act.saved{color:var(--db-yellow)}
+.dbw-focus-side{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-content:start}
+.dbw-mini .dbw-card-media img{aspect-ratio:16/9}
+.dbw-mini .dbw-card-body{padding:12px 14px 14px}
+.dbw-mini .dbw-card-body h3{font-size:14px}
+.dbw-mini .dbw-card-body p{display:none}
+.dbw-mini .dbw-card-meta{margin-top:9px;font-size:11.5px}
+
+/* ============ 热门视频流 ============ */
+.dbw-fliter{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:28px}
+.dbw-fliter button{
+  font-size:13px;padding:7px 16px;border-radius:999px;border:1px solid var(--db-line);
+  color:var(--db-muted);transition:.2s;background:rgba(255,255,255,.02);
+}
+.dbw-fliter button:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+.dbw-fliter button.on{background:var(--db-yellow);color:#171203;border-color:var(--db-yellow);font-weight:700}
+.dbw-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.dbw-flow .dbw-card[data-hidden="1"]{display:none}
+
+/* ============ 专题 ============ */
+.dbw-special{background:var(--db-bg-2);border-block:1px solid var(--db-line)}
+.dbw-special-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.dbw-special-card{
+  border-radius:var(--db-radius);overflow:hidden;position:relative;border:1px solid var(--db-line);
+  background:var(--db-panel);transition:.26s;
+}
+.dbw-special-card:hover{transform:translateY(-4px);border-color:rgba(79,214,208,.45)}
+.dbw-special-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.dbw-special-mask{
+  position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,16,29,0) 34%,rgba(11,16,29,.94) 82%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:18px;
+}
+.dbw-special-mask em{
+  font-style:normal;align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.06em;
+  background:var(--db-cyan);color:#0b1521;padding:3px 9px;border-radius:5px;margin-bottom:9px;
+}
+.dbw-special-mask h3{font-size:16px;font-weight:800;color:#fff;line-height:1.4}
+.dbw-special-mask p{font-size:12.5px;color:#b6c1d9;margin-top:5px;line-height:1.6}
+.dbw-special-mask span{display:block;font-size:11.5px;color:var(--db-yellow);margin-top:8px;font-weight:600}
+
+/* ============ 创作者 ============ */
+.dbw-creators{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.dbw-creator{
+  background:var(--db-panel);border:1px solid var(--db-line);border-radius:var(--db-radius);
+  padding:22px 18px;text-align:center;transition:.26s;
+}
+.dbw-creator:hover{transform:translateY(-4px);border-color:rgba(140,123,255,.5);box-shadow:var(--db-shadow)}
+.dbw-creator-av{
+  width:62px;height:62px;border-radius:19px;margin:0 auto 12px;display:grid;place-items:center;
+  font-size:23px;font-weight:900;color:#131a2c;box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+.dbw-creator h3{font-size:15.5px;font-weight:800;color:#fff}
+.dbw-creator .dbw-creator-field{font-size:12px;color:var(--db-cyan);margin-top:3px}
+.dbw-creator p{font-size:12.5px;color:var(--db-muted);margin-top:9px;line-height:1.65;min-height:60px}
+.dbw-creator-nums{display:flex;justify-content:center;gap:18px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--db-line)}
+.dbw-creator-nums div{font-size:11.5px;color:#8792ae}
+.dbw-creator-nums b{display:block;font-size:14px;color:var(--db-yellow)}
+.dbw-creator-more{margin-top:12px;font-size:12.5px;color:var(--db-yellow);font-weight:700}
+
+/* ============ 故事随笔 + 榜单 ============ */
+.dbw-story-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:38px}
+.dbw-story{display:grid;gap:18px}
+.dbw-story-item{
+  display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:flex-start;
+  background:rgba(255,255,255,.025);border:1px solid var(--db-line);border-radius:13px;padding:14px;transition:.22s;
+}
+.dbw-story-item:hover{background:rgba(255,255,255,.05);border-color:rgba(255,198,60,.3)}
+.dbw-story-item img{width:96px;height:96px;border-radius:10px;object-fit:cover}
+.dbw-story-item h3{font-size:14.5px;font-weight:700;color:#fff;line-height:1.5}
+.dbw-story-item p{font-size:12.5px;color:var(--db-muted);line-height:1.7;margin-top:5px}
+.dbw-story-item span{font-size:11.5px;color:#7d88a3;display:block;margin-top:7px}
+.dbw-rank{background:var(--db-panel);border:1px solid var(--db-line);border-radius:var(--db-radius);padding:8px 18px 18px}
+.dbw-rank h3{font-size:15px;font-weight:800;padding:14px 0 12px;border-bottom:1px solid var(--db-line);color:#fff}
+.dbw-rank ol{list-style:none}
+.dbw-rank li{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px dashed rgba(255,255,255,.06);font-size:13px}
+.dbw-rank li:last-child{border-bottom:none}
+.dbw-rank-num{
+  width:20px;height:20px;border-radius:6px;flex:none;display:grid;place-items:center;
+  font-size:11px;font-weight:900;background:rgba(255,255,255,.07);color:#98a3bd;
+}
+.dbw-rank li:nth-child(1) .dbw-rank-num{background:var(--db-yellow);color:#171203}
+.dbw-rank li:nth-child(2) .dbw-rank-num{background:#cbd3e6;color:#171203}
+.dbw-rank li:nth-child(3) .dbw-rank-num{background:#e08b5a;color:#171203}
+.dbw-rank li a{flex:1;color:#d3dbee;transition:.2s}
+.dbw-rank li a:hover{color:var(--db-yellow)}
+.dbw-rank li b{font-size:11.5px;color:#7d88a3;font-weight:600}
+
+/* ============ 用户评价 ============ */
+.dbw-voices{background:var(--db-bg-2);border-block:1px solid var(--db-line)}
+.dbw-voices-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.dbw-voice{
+  background:var(--db-panel);border:1px solid var(--db-line);border-radius:var(--db-radius);
+  padding:20px;position:relative;transition:.22s;
+}
+.dbw-voice:hover{border-color:rgba(255,198,60,.35);transform:translateY(-3px)}
+.dbw-voice::before{
+  content:"“";position:absolute;top:6px;right:16px;font-size:56px;line-height:1;
+  color:rgba(255,198,60,.16);font-family:Georgia,serif;
+}
+.dbw-voice p{font-size:13.5px;color:#c4cde2;line-height:1.85;position:relative;z-index:1}
+.dbw-voice-foot{display:flex;align-items:center;gap:9px;margin-top:15px;padding-top:13px;border-top:1px solid var(--db-line)}
+.dbw-voice-foot .dbw-avatar{width:28px;height:28px;font-size:12px}
+.dbw-voice-foot b{font-size:12.5px;color:#fff;display:block;line-height:1.3}
+.dbw-voice-foot span{font-size:11px;color:#7d88a3}
+
+/* ============ 灵感 / 动态 / FAQ ============ */
+.dbw-duo{display:grid;grid-template-columns:1fr 1fr;gap:38px}
+.dbw-idea{display:grid;gap:14px}
+.dbw-idea-item{
+  border:1px dashed rgba(255,198,60,.3);border-radius:12px;padding:15px 17px;
+  background:linear-gradient(120deg,rgba(255,198,60,.06),transparent);transition:.22s;
+}
+.dbw-idea-item:hover{background:linear-gradient(120deg,rgba(255,198,60,.12),transparent);border-style:solid}
+.dbw-idea-item b{font-size:13.5px;color:var(--db-yellow);display:block;margin-bottom:4px}
+.dbw-idea-item p{font-size:13px;color:#b8c2da;line-height:1.75}
+.dbw-timeline{position:relative;padding-left:22px}
+.dbw-timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--db-yellow),var(--db-purple),transparent)}
+.dbw-timeline-item{position:relative;padding-bottom:20px}
+.dbw-timeline-item::before{
+  content:"";position:absolute;left:-22px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--db-panel);border:2px solid var(--db-yellow);
+}
+.dbw-timeline-item time{font-size:11.5px;color:var(--db-cyan);font-weight:700;letter-spacing:.04em}
+.dbw-timeline-item h3{font-size:14px;color:#fff;font-weight:700;margin:3px 0 4px}
+.dbw-timeline-item p{font-size:12.5px;color:var(--db-muted);line-height:1.7}
+.dbw-faq{margin-top:44px}
+.dbw-faq-list{display:grid;gap:11px;margin-top:22px}
+.dbw-faq details{
+  background:var(--db-panel);border:1px solid var(--db-line);border-radius:12px;
+  padding:0 18px;transition:.2s;
+}
+.dbw-faq details[open]{border-color:rgba(255,198,60,.4);background:var(--db-panel-2)}
+.dbw-faq summary{
+  list-style:none;cursor:pointer;padding:15px 26px 15px 0;font-size:14px;font-weight:700;color:#e7ecf8;position:relative;
+}
+.dbw-faq summary::-webkit-details-marker{display:none}
+.dbw-faq summary::after{
+  content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);
+  font-size:19px;color:var(--db-yellow);font-weight:400;transition:.2s;
+}
+.dbw-faq details[open] summary::after{content:"−"}
+.dbw-faq details p{font-size:13px;color:var(--db-muted);line-height:1.85;padding:0 0 16px;border-top:1px solid var(--db-line);padding-top:13px}
+
+/* ============ 合作 / 联系 ============ */
+.dbw-partners{display:flex;flex-wrap:wrap;gap:14px;margin-top:6px}
+.dbw-partners div{
+  flex:1 1 150px;border:1px solid var(--db-line);border-radius:11px;padding:16px 12px;
+  text-align:center;font-size:13.5px;font-weight:700;color:#aab5cd;transition:.22s;background:rgba(255,255,255,.02);
+}
+.dbw-partners div:hover{color:#fff;border-color:rgba(140,123,255,.5);background:rgba(140,123,255,.1)}
+.dbw-contact{
+  margin-top:34px;border-radius:var(--db-radius);padding:32px;
+  background:linear-gradient(120deg,rgba(140,123,255,.2),rgba(79,214,208,.1));
+  border:1px solid rgba(140,123,255,.3);display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:space-between;
+}
+.dbw-contact h3{font-size:20px;font-weight:800;color:#fff}
+.dbw-contact p{font-size:13.5px;color:#c3cde3;margin-top:6px;max-width:520px}
+.dbw-contact-btns{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ============ 页脚 ============ */
+.dbw-footer{background:#0b101d;border-top:1px solid var(--db-line);padding:52px 0 26px}
+.dbw-footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:34px}
+.dbw-footer h4{font-size:13.5px;font-weight:800;color:#fff;margin-bottom:14px;letter-spacing:.04em}
+.dbw-footer p,.dbw-footer a{font-size:13px;color:#8a95b0;line-height:2.05}
+.dbw-footer a:hover{color:var(--db-yellow)}
+.dbw-footer-col ul{list-style:none}
+.dbw-footer-bottom{
+  margin-top:38px;padding-top:20px;border-top:1px solid var(--db-line);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12px;color:#6f7a94;
+}
+.dbw-footer-bottom span{line-height:1.9}
+
+/* ============ 回到顶部 & Toast ============ */
+.dbw-top{
+  position:fixed;right:22px;bottom:26px;width:46px;height:46px;border-radius:13px;z-index:70;
+  background:linear-gradient(140deg,var(--db-yellow),#ff9b3d);color:#191203;
+  display:grid;place-items:center;font-size:19px;font-weight:900;
+  box-shadow:0 12px 26px rgba(255,198,60,.3);opacity:0;pointer-events:none;transform:translateY(12px);transition:.26s;
+}
+.dbw-top.on{opacity:1;pointer-events:auto;transform:translateY(0)}
+.dbw-toast{
+  position:fixed;left:50%;bottom:34px;transform:translate(-50%,20px);
+  background:#1f2942;border:1px solid rgba(255,198,60,.45);color:#fff;
+  padding:11px 22px;border-radius:11px;font-size:13.5px;z-index:120;
+  opacity:0;pointer-events:none;transition:.28s;box-shadow:var(--db-shadow);font-weight:600;
+}
+.dbw-toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ============ 弹窗 ============ */
+.dbw-modal{
+  position:fixed;inset:0;z-index:110;display:none;place-items:center;padding:20px;
+  background:rgba(7,10,18,.72);backdrop-filter:blur(6px);
+}
+.dbw-modal.on{display:grid}
+.dbw-modal-box{
+  width:min(520px,100%);background:var(--db-panel);border:1px solid var(--db-line);
+  border-radius:18px;padding:26px;box-shadow:var(--db-shadow);max-height:88vh;overflow:auto;
+}
+.dbw-modal-box h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:6px}
+.dbw-modal-box .dbw-modal-sub{font-size:12.5px;color:var(--db-muted);margin-bottom:18px}
+.dbw-modal-close{position:absolute;top:18px;right:20px}
+.dbw-field{margin-bottom:14px}
+.dbw-field label{display:block;font-size:12.5px;color:#aab5cd;margin-bottom:6px;font-weight:600}
+.dbw-field input,.dbw-field textarea,.dbw-field select{
+  width:100%;background:rgba(255,255,255,.06);border:1px solid var(--db-line);
+  border-radius:9px;padding:10px 12px;color:#fff;font-size:13.5px;outline:none;transition:.2s;
+}
+.dbw-field textarea{min-height:88px;resize:vertical}
+.dbw-field input:focus,.dbw-field textarea:focus,.dbw-field select:focus{border-color:var(--db-yellow)}
+.dbw-modal-contact{display:grid;gap:9px;font-size:13.5px;color:#c3cde3}
+.dbw-modal-contact b{color:var(--db-yellow)}
+
+/* ============ 响应式 ============ */
+@media (max-width:1000px){
+  .dbw-hero-grid{grid-template-columns:1fr;gap:36px;padding:52px 0 56px}
+  .dbw-about-grid,.dbw-duo,.dbw-story-grid{grid-template-columns:1fr;gap:30px}
+  .dbw-focus-grid{grid-template-columns:1fr}
+  .dbw-flow{grid-template-columns:repeat(2,1fr)}
+  .dbw-special-grid{grid-template-columns:repeat(2,1fr)}
+  .dbw-creators{grid-template-columns:repeat(2,1fr)}
+  .dbw-voices-grid{grid-template-columns:1fr 1fr}
+  .dbw-footer-grid{grid-template-columns:1fr 1fr}
+  .dbw-nav{display:none}
+  .dbw-nav.open{
+    display:flex;flex-direction:column;width:100%;margin:0 0 12px;
+    order:5;background:var(--db-panel);border:1px solid var(--db-line);border-radius:12px;padding:8px;
+  }
+  .dbw-header-inner{flex-wrap:wrap;gap:14px}
+  .dbw-burger{display:grid}
+  .dbw-search{margin-left:auto}
+  .dbw-search input{width:170px}
+  .dbw-search input:focus{width:190px}
+}
+@media (max-width:640px){
+  .dbw-section{padding:52px 0}
+  .dbw-flow,.dbw-special-grid,.dbw-creators,.dbw-voices-grid,.dbw-focus-side{grid-template-columns:1fr}
+  .dbw-stats{gap:22px}
+  .dbw-notice-track{font-size:12px}
+  .dbw-search input{width:130px}
+  .dbw-search input:focus{width:150px}
+  .dbw-hero-float{left:0;bottom:-14px;max-width:220px}
+  .dbw-footer-grid{grid-template-columns:1fr}
+  .dbw-story-item{grid-template-columns:72px 1fr}
+  .dbw-story-item img{width:72px;height:72px}
+  .dbw-contact{padding:24px}
+  .dbw-one-col{grid-template-columns:1fr!important}
+  .dbw-footer-bottom{flex-direction:column}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<!-- ================= 吸顶:公告条 + 页头 ================= -->
+<div class="dbw-sticky">
+  <div class="dbw-notice">
+    <div class="dbw-wrap dbw-notice-inner">
+      <span class="dbw-notice-tag">最新公告</span>
+      <div class="dbw-notice-track">
+        <span class="dbw-notice-item"><b>11月19日 20:00</b> 第 611 期「每日爆料大赛」题目发布：回忆里的一件小物</span>
+        <span class="dbw-notice-item"><b>11月18日</b> 官方发布第 610 期获奖名单，共 48 位创作者进入精品内容池</span>
+        <span class="dbw-notice-item"><b>11月20日</b> 开放「冬季创作挑战」报名，新增视频投稿双通道</span>
+      </div>
+    </div>
+  </div>
+
+  <header class="dbw-header">
+    <div class="dbw-wrap dbw-header-inner">
+      <a class="dbw-logo" href="#dbw-home" aria-label="每日大赛官方网站首页">
+        <span class="dbw-logo-mark">每</span>
+        <span class="dbw-logo-txt">
+          <strong>每日大赛</strong>
+          <span>DAILY CONTEST</span>
+        </span>
+      </a>
+      <nav class="dbw-nav" id="dbwNav" aria-label="主导航">
+        <a href="#dbw-home">首页</a>
+        <a href="#dbw-focus">焦点内容</a>
+        <a href="#dbw-flow">每日爆料</a>
+        <a href="#dbw-special">专题企划</a>
+        <a href="#dbw-creators">创作者</a>
+        <a href="#dbw-story">品牌故事</a>
+        <a href="#dbw-updates">企业动态</a>
+        <a href="#dbw-faq">帮助</a>
+      </nav>
+      <div class="dbw-search">
+        <input type="text" id="dbwSearchInput" placeholder="搜索题目、创作者、专题" aria-label="站内搜索">
+        <button class="dbw-search-go" id="dbwSearchBtn" aria-label="搜索">⌕</button>
+        <div class="dbw-search-fb" id="dbwSearchFb"></div>
+      </div>
+      <button class="dbw-burger" id="dbwBurger" aria-label="展开导航" aria-expanded="false"><span></span></button>
+    </div>
+  </header>
+</div>
+
+<!-- ================= H1 主视觉 ================= -->
+<section class="dbw-hero" id="dbw-home">
+  <div class="dbw-wrap dbw-hero-grid">
+    <div>
+      <span class="dbw-hero-badge"><i></i>每日大赛官方网站 · 第 611 期正在进行</span>
+      <h1>每日大赛 每日爆料大赛</h1>
+      <p class="dbw-hero-sub">一天一个题目，一天一次爆料，把日常拍成值得被看见的作品</p>
+      <p class="dbw-hero-intro">每日大赛 是面向创作者与兴趣社区的原创赛事平台。我们用「每日爆料大赛」的形式，把生活里那些被忽略的细节变成题目，让每位参与者都能用一条短视频完成自己的记录。这里是品牌官网，也是持续运营的内容生态入口。</p>
+      <div class="dbw-hero-btns">
+        <a class="dbw-btn dbw-btn-primary" href="#dbw-flow">查看今日题目 →</a>
+        <a class="dbw-btn dbw-btn-ghost" href="#dbw-creators">认识创作者</a>
+        <button class="dbw-btn dbw-btn-ghost" id="dbwSubmitOpen">我要投稿</button>
+      </div>
+      <div class="dbw-stats">
+        <div class="dbw-stat"><strong data-count="611">611</strong><span>已举办期数</span></div>
+        <div class="dbw-stat"><strong data-count="12800" data-suffix="+">12,800</strong><span>累计投稿作品</span></div>
+        <div class="dbw-stat"><strong data-count="86" data-suffix="万">86万</strong><span>社区创作者</span></div>
+      </div>
+    </div>
+    <div class="dbw-hero-visual">
+      <div class="dbw-hero-frame">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 520'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23232f52'/%3E%3Cstop offset='1' stop-color='%23121929'/%3E%3C/linearGradient%3E%3ClinearGradient id='g2' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23ffc63c'/%3E%3Cstop offset='1' stop-color='%23ff5a4e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='520' fill='url(%23g1)'/%3E%3Ccircle cx='640' cy='120' r='150' fill='%238c7bff' opacity='.18'/%3E%3Ccircle cx='150' cy='430' r='180' fill='%234fd6d0' opacity='.12'/%3E%3Cg opacity='.9'%3E%3Crect x='90' y='90' width='300' height='180' rx='14' fill='%231b2540' stroke='%23ffffff' stroke-opacity='.12'/%3E%3Crect x='110' y='112' width='120' height='10' rx='5' fill='%23ffc63c'/%3E%3Crect x='110' y='134' width='220' height='8' rx='4' fill='%23ffffff' opacity='.25'/%3E%3Crect x='110' y='152' width='180' height='8' rx='4' fill='%23ffffff' opacity='.18'/%3E%3Crect x='110' y='188' width='76' height='26' rx='7' fill='%23ff5a4e' opacity='.85'/%3E%3C/g%3E%3Cg%3E%3Crect x='420' y='160' width='290' height='240' rx='16' fill='%23202c4c' stroke='%23ffffff' stroke-opacity='.14'/%3E%3Ccircle cx='565' cy='262' r='40' fill='none' stroke='url(%23g2)' stroke-width='5'/%3E%3Cpath d='M552 242 L592 262 L552 282 Z' fill='%23ffc63c'/%3E%3Crect x='446' y='336' width='150' height='9' rx='4' fill='%23ffffff' opacity='.3'/%3E%3Crect x='446' y='356' width='100' height='9' rx='4' fill='%23ffffff' opacity='.16'/%3E%3C/g%3E%3Cpath d='M90 470 Q260 400 430 460 T760 430' stroke='%23ffc63c' stroke-width='3' fill='none' opacity='.5' stroke-dasharray='9 9'/%3E%3Ctext x='90' y='60' fill='%23ffc63c' font-family='sans-serif' font-size='17' font-weight='bold'%3EDAILY CONTEST / 611%3C/text%3E%3C/svg%3E" alt="每日大赛主视觉:每日爆料大赛第611期题目卡片与作品预览">
+      </div>
+      <div class="dbw-hero-float">
+        <span class="dbw-dot">播</span>
+        <p><b>今日爆料题目</b>回忆里的一件小物 · 征集至 24:00</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 关键词解析长文 ================= -->
+<section class="dbw-section dbw-about" id="dbw-about">
+  <div class="dbw-wrap">
+    <div class="dbw-head-row">
+      <div>
+        <span class="dbw-eyebrow">About the Contest</span>
+        <h2 class="dbw-h2">关于<em>每日大赛</em>:一个把「爆料」变成日常创作方法的品牌</h2>
+        <p class="dbw-lead">从第 1 期到第 611 期,我们坚持用一天一个题目的方式,让创作不必等到万事俱备。以下从品牌定位、内容生态、赛制设计与社区价值四个维度,完整解释这个平台为什么值得信赖。</p>
+      </div>
+    </div>
+    <div class="dbw-about-grid">
+      <div>
+        <h3>一、品牌定位:赛事是形式,记录是内核</h3>
+        <p><strong>每日大赛</strong>不是一场只有冠军的竞技,而是一套持续运营的创作机制。我们把「每日爆料大赛」理解为一次日常的公开表达:题目由官方发布,内容由社区完成,最终沉淀为可被检索、可被回看的作品档案。作为该领域的垂直领域平台,我们希望每位参与者在提交作品的三十秒里,获得一次对生活的重新注视。</p>
+        <p>官方网站的核心页面上,你会看到三类信息并列呈现:今日题目、往期精品、创作者故事。它们构成一个闭环——题目负责发起,精品负责示范,故事负责解释「为什么拍」。这也是我们与普通内容平台最大的区别:我们不追求流量峰值,而追求每天都不缺席的稳定输出。口碑来自这种稳定,而不是某一次爆款。</p>
+        <h3>二、内容生态:从一条视频到一套方法</h3>
+        <p>在每日大赛的内容生态中,作品不是孤立存在的。每一期题目都会在结束后进入「精品内容池」,由编辑团队与社区共同筛选,再拆解成脚本结构、镜头语言与叙事节奏,形成可复用的攻略。创作者可以据此改进下一次投稿,新人可以据此降低第一次参与的门槛。<strong>每日爆料大赛</strong>因而同时具备赛事属性与教学属性:它既是一场比赛,也是一份持续更新的创作手册。</p>
+        <p>我们尤其重视真实与温暖。平台不鼓励夸张的表演式表达,而鼓励把镜头对准具体的人、具体的场景、具体的动作。一道菜的火候、一段路的拐角、一件旧物的磨损痕迹,都可以成为爆料的起点。这种取向让社区氛围保持包容,也让不同年龄、不同职业的创作者都能找到自己的位置。</p>
+        <h3>三、赛制设计:轻量参与,专业评审</h3>
+        <p>每日一题、当日截止、次日公布,是每日大赛最基本的节奏。题目控制在二十字以内,方向可涵盖日常记录、经验分享、人物访谈、城市探索、手作 DIY 等题材;提交形式以横屏或竖屏短视频为主,时长建议 15 秒至 3 分钟。评审采用「编辑初筛 + 社区投票 + 专业终审」三段式,既保证品质底线,也保留社区的选择权。</p>
+        <p>赛制刻意保持轻量:没有复杂报名流程,没有层层晋级,参与者只需在投稿页填写题目编号与作品链接即可完成<strong>上传</strong>。我们相信,规则的复杂度应当与参与动力成反比——规则越简单,愿意开始的人越多。与此同时,官方会对入选作品进行正版备案与署名保护,确保创作者的劳动被清晰记录。</p>
+        <h3>四、社区价值:陪伴式成长</h3>
+        <p>在长期运营中,我们发现最有价值的产出并不是获奖名单,而是「坚持投稿的人」。有人从第 100 期拍到第 600 期,把镜头从厨房移到街巷,再移到家人身上;有人在评论区结识了长期的合作搭档。每日大赛因此更像一个陪伴式社区:它提供题目、提供反馈、提供被看见的机会,也提供一种温和的自我要求。</p>
+        <p>作为品牌方,我们把这套价值总结为一句话:让创作成为一种日常习惯。官方网站会持续发布企业动态、赛制更新与行业观察,也会开放合作与共创通道。无论你是第一次听说每日爆料大赛,还是已经投稿数百期的老朋友,这里都保留着你的位置。</p>
+      </div>
+      <div>
+        <h3>五、我们如何定义「爆料」</h3>
+        <p>爆料不等于猎奇。在每日大赛的语境里,爆料指的是「把一个不被注意的细节,郑重地说出来」。它可能是一段被忽略的家庭对话,可能是一条只在清晨出现的光线,也可能是一个手艺人的工作台。<strong>每日爆料大赛</strong>希望训练的是观察力,而不是制造话题的能力。</p>
+        <p>因此,平台在评审标准中始终保留「具体性」这一项:越具体的作品,越容易获得推荐。抽象的口号、空泛的抒情、模板化的运镜,通常难以进入精品池。这条标准看似苛刻,实际是在保护创作者——它让认真拍摄的人得到应有的回报。</p>
+        <h3>六、品牌的责任与边界</h3>
+        <p>作为持续运营的内容平台,每日大赛对作品版权、隐私与未成年人保护设有明确规范。投稿即视为授权官方在品牌宣传范围内进行展示,但商业使用需另行授权;涉及他人肖像与私人空间的画面,需获得当事人同意。这些规则写在帮助中心,也在每次投稿时以勾选方式确认。</p>
+        <p>我们同样重视行业观察与公共讨论。每季度,官方会发布一期「每日爆料大赛内容观察」,统计题材分布、时长偏好与叙事结构的变化,供创作者与研究者参考。这类内容不追求结论惊人,只追求数据可信,这也是我们理解的<strong>社会责任</strong>。</p>
+        <div class="dbw-about-card">
+          <b>快速了解每日大赛</b>
+          <ul>
+            <li>形态:每日一题的短视频赛事社区</li>
+            <li>节奏:当日发布题目,当日截止,次日公布</li>
+            <li>题材:日常记录、经验分享、人物访谈、城市探索、手作 DIY 等</li>
+            <li>评审:编辑初筛 + 社区投票 + 专业终审</li>
+            <li>产出:精品内容池、创作攻略、内容观察报告</li>
+            <li>理念:真实、温暖、陪伴、持续成长</li>
+          </ul>
+        </div>
+        <h3>七、面向未来的三个计划</h3>
+        <p>第一,把精品内容池扩展为可检索的公开档案,让每一期题目都能被后人回看;第二,开放创作者合作计划,支持长期投稿者制作系列内容;第三,与高校与社区机构合作,把每日爆料大赛带进课堂与公共空间,让创作训练覆盖更广的人群。这些计划会在企业动态中逐步披露进展。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 焦点内容 ================= -->
+<section class="dbw-section" id="dbw-focus">
+  <div class="dbw-wrap">
+    <div class="dbw-head-row">
+      <div>
+        <span class="dbw-eyebrow">Featured</span>
+        <h2 class="dbw-h2">焦点内容:本期<em>每日爆料大赛</em>推荐</h2>
+        <p class="dbw-lead">由编辑团队与社区共同选出的四组作品,覆盖日常记录、人物访谈与城市探索三个方向,可作为首次投稿的参考样本。</p>
+      </div>
+      <a class="dbw-btn dbw-btn-ghost" href="#dbw-flow">浏览全部作品</a>
+    </div>
+    <div class="dbw-focus-grid">
+      <article class="dbw-card">
+        <div class="dbw-card-media">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='f1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffb56b'/%3E%3Cstop offset='1' stop-color='%23e8623c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23f1)'/%3E%3Ccircle cx='600' cy='130' r='90' fill='%23fff3d6' opacity='.55'/%3E%3Crect x='70' y='250' width='360' height='14' rx='7' fill='%23ffffff' opacity='.55'/%3E%3Crect x='70' y='286' width='250' height='10' rx='5' fill='%23ffffff' opacity='.35'/%3E%3Cpath d='M70 200 Q200 130 330 190 T590 170' stroke='%23ffffff' stroke-width='4' fill='none' opacity='.5'/%3E%3Crect x='640' y='300' width='90' height='90' rx='12' fill='%23ffffff' opacity='.22'/%3E%3C/svg%3E" alt="焦点作品封面:灶台上一锅慢慢收汁的红烧肉">
+          <span class="dbw-tag">日常记录</span>
+          <div class="dbw-play"><i></i></div>
+        </div>
+        <div class="dbw-card-body">
+          <h3>灶台边的一小时:我把红烧肉的收汁声录了下来</h3>
+          <p>第 611 期投稿作品。作者用固定机位记录了一锅肉从翻滚到收汁的全过程,没有旁白,只有锅盖与油花的声音。编辑部认为这是「具体性」标准的最佳示范。</p>
+          <div class="dbw-card-meta">
+            <span class="dbw-avatar" style="background:#ffc63c">阿</span>
+            <span>阿棠的厨房</span>
+            <span>· 2.3 万次浏览</span>
+            <span class="dbw-card-actions">
+              <button class="dbw-act dbw-like" data-likes="826" aria-label="点赞">♥ <b>826</b></button>
+              <button class="dbw-act dbw-save" aria-label="收藏">☆</button>
+              <button class="dbw-act dbw-share" aria-label="分享">↗</button>
+            </span>
+          </div>
+        </div>
+      </article>
+      <div class="dbw-focus-side">
+        <article class="dbw-card dbw-mini">
+          <div class="dbw-card-media">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='f2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232f3f6b'/%3E%3Cstop offset='1' stop-color='%234fd6d0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23f2)'/%3E%3Cg stroke='%23ffffff' stroke-opacity='.4' stroke-width='3' fill='none'%3E%3Cpath d='M0 360 L180 250 L330 320 L520 200 L800 300'/%3E%3C/g%3E%3Ccircle cx='200' cy='130' r='48' fill='%23ffffff' opacity='.3'/%3E%3Crect x='560' y='90' width='150' height='110' rx='10' fill='%23ffffff' opacity='.16'/%3E%3C/svg%3E" alt="焦点作品封面:清晨六点的城市街道与通勤的人">
+            <span class="dbw-tag">城市探索</span>
+          </div>
+          <div class="dbw-card-body">
+            <h3>清晨六点,我跟着环卫车走完三条街</h3>
+            <div class="dbw-card-meta">
+              <span class="dbw-avatar" style="background:#4fd6d0">林</span>
+              <span>林一舟</span>
+              <span>1.1 万</span>
+            </div>
+          </div>
+        </article>
+        <article class="dbw-card dbw-mini">
+          <div class="dbw-card-media">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='f3' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238c7bff'/%3E%3Cstop offset='1' stop-color='%232b2059'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23f3)'/%3E%3Crect x='120' y='110' width='230' height='230' rx='16' fill='%23ffffff' opacity='.14'/%3E%3Crect x='390' y='180' width='290' height='12' rx='6' fill='%23ffffff' opacity='.5'/%3E%3Crect x='390' y='214' width='210' height='12' rx='6' fill='%23ffffff' opacity='.3'/%3E%3Ccircle cx='235' cy='225' r='52' fill='%23ffc63c' opacity='.7'/%3E%3C/svg%3E" alt="焦点作品封面:手作工作室里的木料与工具">
+            <span class="dbw-tag">人物访谈</span>
+          </div>
+          <div class="dbw-card-body">
+            <h3>做了十二年木工,他说最难的是忍住不加装饰</h3>
+            <div class="dbw-card-meta">
+              <span class="dbw-avatar" style="background:#8c7bff">周</span>
+              <span>周野手记</span>
+              <span>9860</span>
+            </div>
+          </div>
+        </article>
+        <article class="dbw-card dbw-mini">
+          <div class="dbw-card-media">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='f4' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff5a4e'/%3E%3Cstop offset='1' stop-color='%23a81f36'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23f4)'/%3E%3Cg fill='%23ffffff' opacity='.22'%3E%3Ccircle cx='160' cy='330' r='70'/%3E%3Ccircle cx='300' cy='250' r='46'/%3E%3Ccircle cx='420' cy='340' r='58'/%3E%3C/g%3E%3Crect x='510' y='140' width='200' height='180' rx='14' fill='%23ffffff' opacity='.16'/%3E%3Cpath d='M560 230 L620 190 L680 230 L620 270 Z' fill='%23ffc63c' opacity='.8'/%3E%3C/svg%3E" alt="焦点作品封面:老式收音机与泛黄的照片">
+            <span class="dbw-tag">情感故事</span>
+          </div>
+          <div class="dbw-card-body">
+            <h3>外公的收音机还能响,只是频道只剩一个</h3>
+            <div class="dbw-card-meta">
+              <span class="dbw-avatar" style="background:#ff5a4e">南</span>
+              <span>南屿日记</span>
+              <span>1.6 万</span>
+            </div>
+          </div>
+        </article>
+        <article class="dbw-card dbw-mini">
+          <div class="dbw-card-media">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='f5' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232e6b4f'/%3E%3Cstop offset='1' stop-color='%23a9c46c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23f5)'/%3E%3Cpath d='M0 380 Q200 300 400 370 T800 340 L800 450 L0 450 Z' fill='%23142b23' opacity='.55'/%3E%3Cg stroke='%23ffffff' stroke-opacity='.45' stroke-width='4' fill='none'%3E%3Cpath d='M220 340 L220 210'/%3E%3Cpath d='M220 260 Q280 240 300 190'/%3E%3C/g%3E%3Ccircle cx='300' cy='180' r='26' fill='%23ffc63c' opacity='.85'/%3E%3C/svg%3E" alt="焦点作品封面:阳台上的绿植与浇水的手">
+            <span class="dbw-tag">治愈影像</span>
+          </div>
+          <div class="dbw-card-body">
+            <h3>在北阳台种了三年菜,第一次收成只够一盘</h3>
+            <div class="dbw-card-meta">
+              <span class="dbw-avatar" style="background:#a9c46c">禾</span>
+              <span>禾下乘凉</span>
+              <span>7420</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 热门视频流 ================= -->
+<section class="dbw-section" id="dbw-flow" style="background:var(--db-bg-2);border-block:1px solid var(--db-line)">
+  <div class="dbw-wrap">
+    <div class="dbw-head-row">
+      <div>
+        <span class="dbw-eyebrow">Daily Feed</span>
+        <h2 class="dbw-h2">热门视频流:近七期<em>每日爆料大赛</em>精选</h2>
+        <p class="dbw-lead">按题材筛选你感兴趣的方向,每张卡片都标注了期号与作者,方便回看完整作品。</p>
+      </div>
+    </div>
+    <div class="dbw-fliter" id="dbwFilter" role="tablist" aria-label="题材筛选">
+      <button class="on" data-filter="all">全部</button>
+      <button data-filter="daily">日常记录</button>
+      <button data-filter="city">城市探索</button>
+      <button data-filter="craft">手作 DIY</button>
+      <button data-filter="people">人物访谈</button>
+      <button data-filter="taste">美食烹饪</button>
+    </div>
+    <div class="dbw-flow" id="dbwFlow">
+
+      <article class="dbw-card" data-cat="daily">
+        <div class="dbw-card-media">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='c1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233a4f86'/%3E%3Cstop offset='1' stop-color='%23172244'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23c1)'/%3E%3Crect x='0' y='300' width='800' height='150' fill='%230d1425' opacity='.7'/%3E%3Ccircle cx='620' cy='110' r='62' fill='%23ffc63c' opacity='.8'/%3E%3Cg fill='%23ffffff' opacity='.2'%3E%3Crect x='90' y='180' width='150' height='190' rx='8'/%3E%3Crect x='270' y='220' width='110' height='150' rx='8'/%3E%3C/g%3E%3Cpath d='M480 380 L560 240 L640 380 Z' fill='%234fd6d0' opacity='.5'/%3E%3C/svg%3E" alt="视频封面:夜晚便利店的灯光与买夜宵的人">
+          <span class="dbw-tag">日常记录</span>
+          <div class="dbw-play"><i></i></div>
+        </div>
+        <div class="dbw-card-body">
+          <h3>凌晨两点半的便利店,收银员在背单词</h3>
+          <p>第 609 期。作者记录了夜班收银员的碎片时间,没有任何摆拍,只有柜台前的一本翻旧的口袋书。</p>
+          <div class="dbw-card-meta">
+            <span class="dbw-avatar" style="background:#4fd6d0">顾</span>
+            <span>顾久</span>
+            <span>· 3.4 万</span>
+            <span class="dbw-card-actions">
+              <button class="dbw-act dbw-like" data-likes="1204" aria-label="点赞">♥ <b>1204</b></button>
+              <button class="dbw-act dbw-save" aria-label="收藏">☆</button>
+              <button class="dbw-act dbw-share" aria-label="分享">↗</button>
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dbw-card" data-cat="city">
+        <div class="dbw-card-media">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='c2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23274a63'/%3E%3Cstop offset='1' stop-color='%230f2436'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23c2)'/%3E%3Cg stroke='%23ffffff' stroke-opacity='.28' stroke-width='2' fill='none'%3E%3Cpath d='M0 150 H800 M0 230 H800 M0 310 H800'/%3E%3Cpath d='M160 0 V450 M360 0 V450 M560 0 V450'/%3E%3C/g%3E%3Crect x='190' y='180' width='130' height='130' fill='%234fd6d0' opacity='.28'/%3E%3Crect x='420' y='240' width='90' height='70' fill='%23ffc63c' opacity='.3'/%3E%3Ccircle cx='700' cy='90' r='40' fill='%23ff5a4e' opacity='.55'/%3E%3C/svg%3E" alt="视频封面:俯瞰视角的城市高架与车流">
+          <span class="dbw-tag">城市探索</span>
+          <div class="dbw-play"><i></i></div>
+        </div>
+        <div class="dbw-card-body">
+          <h3>在这座城市住了九年,我第一次走上天桥顶层</h3>
+          <p>第 608 期。一个「熟悉又陌生」的题目,作者用三个俯瞰镜头完成了对居住地的重新认识。</p>
+          <div class="dbw-card-meta">
+            <span class="dbw-avatar" style="background:#ffc63c">何</span>
+            <span>何处是家</span>
+            <span>· 2.1 万</span>
+            <span class="dbw-card-actions">
+              <button class="dbw-act dbw-like" data-likes="742" aria-label="点赞">♥ <b>742</b></button>
+              <button class="dbw-act dbw-save" aria-label="收藏">☆</button>
+              <button class="dbw-act dbw-share" aria-label="分享">↗</button>
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dbw-card" data-cat="craft">
+        <div class="dbw-card-media">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='c3' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23d7a15b'/%3E%3Cstop offset='1' stop-color='%236b4224'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23c3)'/%3E%3Ccircle cx='230' cy='230' r='108' fill='none' stroke='%23fff3d6' stroke-width='14' opacity='.55'/%3E%3Ccircle cx='230' cy='230' r='48' fill='%23fff3d6' opacity='.35'/%3E%3Crect x='430' y='110' width='20' height='250' rx='10' fill='%23fff3d6' opacity='.4'/%3E%3Crect x='500' y='180' width='20' height='180' rx='10' fill='%23fff3d6' opacity='.25'/%3E%3Cpath d='M560 320 L640 200 L720 320 Z' fill='%23ffffff' opacity='.18'/%3E%3C/svg%3E" alt="视频封面:陶泥在拉坯机上成形的瞬间">
+          <span class="dbw-tag">手作 DIY</span>
+          <div class="dbw-play"><i></i></div>
+        </div>
+        <div class="dbw-card-body">
+          <h3>拉坯失败七次之后,我终于做出了一个不歪的碗</h3>
+          <p>第 607 期。作者保留了全部失败镜头,成片没有剪掉任何一次塌陷,这是最诚实的创作幕后。</p>
+          <div class="dbw-card-meta">
+            <span class="dbw-avatar" style="background:#d7a15b">陶</span>
+            <span>陶小满</span>
+            <span>· 1.8 万</span>
+            <span class="dbw-card-actions">
+              <button class="dbw-act dbw-like" data-likes="915" aria-label="点赞">♥ <b>915</b></button>
+              <button class="dbw-act dbw-save" aria-label="收藏">☆</button>
+              <button class="dbw-act dbw-share" aria-label="分享">↗</button>
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dbw-card" data-cat="people">
+        <div class="dbw-card-media">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='c4' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%235748a3'/%3E%3Cstop offset='1' stop-color='%23241c47'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23c4)'/%3E%3Ccircle cx='400' cy='190' r='78' fill='%23ffffff' opacity='.16'/%3E%3Cpath d='M270 450 Q400 300 530 450 Z' fill='%23ffffff' opacity='.14'/%3E%3Crect x='110' y='90' width='12' height='270' rx='6' fill='%23ffc63c' opacity='.6'/%3E%3Crect x='680' y='150' width='12' height='210' rx='6' fill='%234fd6d0' opacity='.5'/%3E%3C/svg%3E" alt="视频封面:受访者在镜头前讲述的侧影">
+          <span class="dbw-tag">人物访谈</span>
+          <div class="dbw-play"><i></i></div>
+        </div>
+        <div class="dbw-card-body">
+          <h3>菜市场卖了二十年豆腐的阿姨,记得每个老主顾的口味</h3>
+          <p>第 606 期。一次十五分钟的闲聊,被剪成两分半的人物小传,评论区出现了大量相似的童年记忆。</p>
+          <div class="dbw-card-meta">
+            <span class="dbw-avatar" style="background:#8c7bff">许</span>
+            <span>许知味</span>
+            <span>· 4.6 万</span>
+            <span class="dbw-card-actions">
+              <button class="dbw-act dbw-like" data-likes="2106" aria-label="点赞">♥ <b>2106</b></button>
+              <button class="dbw-act dbw-save" aria-label="收藏">☆</button>
+              <button class="dbw-act dbw-share" aria-label="分享">↗</button>
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dbw-card" data-cat="taste">
+        <div class="dbw-card-media">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='c5' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23e8a13c'/%3E%3Cstop offset='1' stop-color='%238c3b1e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23c5)'/%3E%3Ccircle cx='400' cy='240' r='112' fill='%23fff3d6' opacity='.3'/%3E%3Ccircle cx='400' cy='240' r='74' fill='%23fff3d6' opacity='.4'/%3E%3Cg stroke='%23ffffff' stroke-opacity='.4' stroke-width='3'%3E%3Cpath d='M120 120 L200 180'/%3E%3Cpath d='M680 120 L600 180'/%3E%3C/g%3E%3Crect x='560' y='330' width='120' height='12' rx='6' fill='%23ffffff' opacity='.4'/%3E%3C/svg%3E" alt="视频封面:热气腾腾的一碗汤面俯拍">
+          <span class="dbw-tag">美食烹饪</span>
+          <div class="dbw-play"><i></i></div>
+        </div>
+        <div class="dbw-card-body">
+          <h3>用冰箱里剩下的四样东西,做了一碗深夜汤面</h3>
+          <p>第 605 期。题目要求「不额外采购」,作者用半根葱、两个蛋、一点干面和半碗高汤完成了答卷。</p>
+          <div class="dbw-card-meta">
+            <span class="dbw-avatar" style="background:#e8a13c">饭</span>
+            <span>饭团纪事</span>
+            <span>· 2.7 万</span>
+            <span class="dbw-card-actions">
+              <button class="dbw-act dbw-like" data-likes="1388" aria-label="点赞">♥ <b>1388</b></button>
+              <button class="dbw-act dbw-save" aria-label="收藏">☆</button>
+              <button class="dbw-act dbw-share" aria-label="分享">↗</button>
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dbw-card" data-cat="daily">
+        <div class="dbw-card-media">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='c6' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23305b5a'/%3E%3Cstop offset='1' stop-color='%23112026'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23c6)'/%3E%3Crect x='100' y='110' width='600' height='230' rx='16' fill='%23ffffff' opacity='.1'/%3E%3Crect x='130' y='150' width='330' height='12' rx='6' fill='%23ffc63c' opacity='.7'/%3E%3Crect x='130' y='184' width='480' height='10' rx='5' fill='%23ffffff' opacity='.3'/%3E%3Crect x='130' y='212' width='400' height='10' rx='5' fill='%23ffffff' opacity='.2'/%3E%3Ccircle cx='640' cy='300' r='42' fill='%234fd6d0' opacity='.7'/%3E%3C/svg%3E" alt="视频封面:桌面上摊开的日记本与钢笔">
+          <span class="dbw-tag">日常记录</span>
+          <div class="dbw-play"><i></i></div>
+        </div>
+        <div class="dbw-card-body">
+          <h3>连续写了 400 天日记,我挑出最没意义的一天读给你听</h3>
+          <p>第 604 期。作者反其道而行,不讲高光时刻,只讲一个普通的星期三,反而获得最多共鸣。</p>
+          <div class="dbw-card-meta">
+            <span class="dbw-avatar" style="background:#305b5a">纸</span>
+            <span>纸上行间</span>
+            <span>· 1.5 万</span>
+            <span class="dbw-card-actions">
+              <button class="dbw-act dbw-like" data-likes="668" aria-label="点赞">♥ <b>668</b></button>
+              <button class="dbw-act dbw-save" aria-label="收藏">☆</button>
+              <button class="dbw-act dbw-share" aria-label="分享">↗</button>
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dbw-card" data-cat="city">
+        <div class="dbw-card-media">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='c7' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23a95d3c'/%3E%3Cstop offset='1' stop-color='%234a2418'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23c7)'/%3E%3Cg stroke='%23ffd9a8' stroke-opacity='.5' stroke-width='3' fill='none'%3E%3Cpath d='M0 120 L800 100'/%3E%3Cpath d='M0 200 L800 190'/%3E%3C/g%3E%3Crect x='120' y='230' width='170' height='150' rx='8' fill='%23ffd9a8' opacity='.28'/%3E%3Crect x='340' y='260' width='130' height='120' rx='8' fill='%23ffd9a8' opacity='.18'/%3E%3Ccircle cx='640' cy='300' r='56' fill='%23ffc63c' opacity='.6'/%3E%3C/svg%3E" alt="视频封面:老街骑楼下的早点摊">
+          <span class="dbw-tag">城市探索</span>
+          <div class="dbw-play"><i></i></div>
+        </div>
+        <div class="dbw-card-body">
+          <h3>这条老街拆之前,我把十二家店的招牌都拍了一遍</h3>
+          <p>第 603 期。作者用一天走完六百米,记录即将消失的店面招牌与手写价目表。</p>
+          <div class="dbw-card-meta">
+            <span class="dbw-avatar" style="background:#a95d3c">巷</span>
+            <span>巷口观察</span>
+            <span>· 3.9 万</span>
+            <span class="dbw-card-actions">
+              <button class="dbw-act dbw-like" data-likes="1752" aria-label="点赞">♥ <b>1752</b></button>
+              <button class="dbw-act dbw-save" aria-label="收藏">☆</button>
+              <button class="dbw-act dbw-share" aria-label="分享">↗</button>
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dbw-card" data-cat="craft">
+        <div class="dbw-card-media">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='c8' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234f7d6b'/%3E%3Cstop offset='1' stop-color='%231d2f2a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23c8)'/%3E%3Cpath d='M200 380 L400 120 L600 380 Z' fill='%23a9c46c' opacity='.3'/%3E%3Crect x='370' y='230' width='60' height='150' fill='%23a9c46c' opacity='.4'/%3E%3Cg stroke='%23ffffff' stroke-opacity='.35' stroke-width='3' fill='none'%3E%3Ccircle cx='400' cy='215' r='52'/%3E%3C/g%3E%3Crect x='100' y='90' width='110' height='12' rx='6' fill='%23ffffff' opacity='.3'/%3E%3C/svg%3E" alt="视频封面:手工造纸的纤维与晾晒架">
+          <span class="dbw-tag">手作 DIY</span>
+          <div class="dbw-play"><i></i></div>
+        </div>
+        <div class="dbw-card-body">
+          <h3>用旧作业本重新造纸,做了一张能写字的卡片</h3>
+          <p>第 602 期。作者把纸张打浆、抄纸、压干的全过程压缩成 100 秒,评论区追问最多的竟是晾晒时间。</p>
+          <div class="dbw-card-meta">
+            <span class="dbw-avatar" style="background:#4f7d6b">木</span>
+            <span>木叶工坊</span>
+            <span>· 1.2 万</span>
+            <span class="dbw-card-actions">
+              <button class="dbw-act dbw-like" data-likes="584" aria-label="点赞">♥ <b>584</b></button>
+              <button class="dbw-act dbw-save" aria-label="收藏">☆</button>
+              <button class="dbw-act dbw-share" aria-label="分享">↗</button>
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dbw-card" data-cat="people">
+        <div class="dbw-card-media">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='c9' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%235a6ea8'/%3E%3Cstop offset='1' stop-color='%231c2542'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23c9)'/%3E%3Crect x='90' y='90' width='250' height='270' rx='12' fill='%23ffffff' opacity='.1'/%3E%3Ccircle cx='215' cy='190' r='52' fill='%23ffc63c' opacity='.65'/%3E%3Crect x='130' y='270' width='170' height='10' rx='5' fill='%23ffffff' opacity='.3'/%3E%3Crect x='420' y='140' width='300' height='10' rx='5' fill='%23ffffff' opacity='.4'/%3E%3Crect x='420' y='176' width='230' height='10' rx='5' fill='%23ffffff' opacity='.25'/%3E%3Crect x='420' y='212' width='270' height='10' rx='5' fill='%23ffffff' opacity='.2'/%3E%3C/svg%3E" alt="视频封面:访谈现场的麦克风与笔记本">
+          <span class="dbw-tag">人物访谈</span>
+          <div class="dbw-play"><i></i></div>
+        </div>
+        <div class="dbw-card-body">
+          <h3>公交司机的一天:他说最怕的不是堵车,是没人按铃</h3>
+          <p>第 601 期。作者跟车十小时,记录了一条线路从清晨到收班的完整时间线。</p>
+          <div class="dbw-card-meta">
+            <span class="dbw-avatar" style="background:#5a6ea8">车</span>
+            <span>车窗之外</span>
+            <span>· 2.9 万</span>
+            <span class="dbw-card-actions">
+              <button class="dbw-act dbw-like" data-likes="1436" aria-label="点赞">♥ <b>1436</b></button>
+              <button class="dbw-act dbw-save" aria-label="收藏">☆</button>
+              <button class="dbw-act dbw-share" aria-label="分享">↗</button>
+            </span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 专题企划 ================= -->
+<section class="dbw-section" id="dbw-special">
+  <div class="dbw-wrap">
+    <div class="dbw-head-row">
+      <div>
+        <span class="dbw-eyebrow">Special Projects</span>
+        <h2 class="dbw-h2">专题企划:把零散的<em>爆料</em>串成一条线</h2>
+        <p class="dbw-lead">每两个月,官方会围绕一个主题发起连续命题,鼓励创作者用多期作品完成纵深表达。</p>
+      </div>
+    </div>
+    <div class="dbw-special-grid">
+      <article class="dbw-special-card">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 450'%3E%3Cdefs%3E%3ClinearGradient id='s1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff8a3d'/%3E%3Cstop offset='1' stop-color='%23b83a1f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='600' height='450' fill='url(%23s1)'/%3E%3Ccircle cx='460' cy='110' r='80' fill='%23fff3d6' opacity='.4'/%3E%3Cpath d='M60 340 Q200 260 340 330 T560 300' stroke='%23fff3d6' stroke-width='6' fill='none' opacity='.6'/%3E%3Crect x='60' y='90' width='150' height='14' rx='7' fill='%23ffffff' opacity='.5'/%3E%3C/svg%3E" alt="专题封面:一桌家常菜与围坐的家人">
+        <div class="dbw-special-mask">
+          <em>连载中</em>
+          <h3>一日一餐:家常菜里的时间</h3>
+          <p>连续十四天,记录同一张餐桌上的不同菜色与不同话题。</p>
+          <span>已更新 9 / 14 期 · 参与 2,140 人</span>
+        </div>
+      </article>
+      <article class="dbw-special-card">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 450'%3E%3Cdefs%3E%3ClinearGradient id='s2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234b6de0'/%3E%3Cstop offset='1' stop-color='%23162644'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='600' height='450' fill='url(%23s2)'/%3E%3Cg stroke='%23ffffff' stroke-opacity='.32' stroke-width='2' fill='none'%3E%3Cpath d='M0 120 H600 M0 210 H600 M0 300 H600'/%3E%3Cpath d='M150 0 V450 M300 0 V450 M450 0 V450'/%3E%3C/g%3E%3Crect x='180' y='180' width='90' height='90' fill='%23ffc63c' opacity='.5'/%3E%3Crect x='360' y='240' width='120' height='60' fill='%234fd6d0' opacity='.45'/%3E%3C/svg%3E" alt="专题封面:城市网格与夜晚窗灯">
+        <div class="dbw-special-mask">
+          <em>进行中</em>
+          <h3>窗口计划:从一扇窗看一座城</h3>
+          <p>统一机位、统一时长,记录窗外的四季与街区变化。</p>
+          <span>已更新 21 / 30 期 · 参与 3,682 人</span>
+        </div>
+      </article>
+      <article class="dbw-special-card">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 450'%3E%3Cdefs%3E%3ClinearGradient id='s3' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236f9c7a'/%3E%3Cstop offset='1' stop-color='%232a3b2c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='600' height='450' fill='url(%23s3)'/%3E%3Cpath d='M0 360 Q180 280 340 340 T600 300 L600 450 L0 450 Z' fill='%23a9c46c' opacity='.3'/%3E%3Cg stroke='%23ffffff' stroke-opacity='.4' stroke-width='4' fill='none'%3E%3Cpath d='M180 330 L180 160'/%3E%3Cpath d='M180 220 Q260 190 280 130'/%3E%3C/g%3E%3Ccircle cx='280' cy='120' r='30' fill='%23ffc63c' opacity='.8'/%3E%3C/svg%3E" alt="专题封面:田间小路与远山">
+        <div class="dbw-special-mask">
+          <em>已完结</em>
+          <h3>回到土地:一次关于老家的追问</h3>
+          <p>十二位创作者回到出生地,记录正在变化或已经消失的乡村日常。</p>
+          <span>共 12 期 · 累计 5.1 万次浏览</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 创作者矩阵 ================= -->
+<section class="dbw-section" id="dbw-creators" style="background:var(--db-bg-2);border-block:1px solid var(--db-line)">
+  <div class="dbw-wrap">
+    <div class="dbw-head-row">
+      <div>
+        <span class="dbw-eyebrow">Creators</span>
+        <h2 class="dbw-h2">创作者矩阵:长期投稿的人,构成了<em>每日大赛</em>的底色</h2>
+        <p class="dbw-lead">他们来自不同行业,投稿方向各异,但都保持了稳定的更新节奏。点击卡片可查看作者简介。</p>
+      </div>
+    </div>
+    <div class="dbw-creators">
+      <article class="dbw-creator">
+        <div class="dbw-creator-av" style="background:linear-gradient(140deg,#ffc63c,#ff8a3d)">棠</div>
+        <h3>阿棠的厨房</h3>
+        <div class="dbw-creator-field">美食烹饪 · 日常记录</div>
+        <p>投稿 186 期。擅长用固定机位和原声,把一顿饭拍成一个完整的小时。</p>
+        <div class="dbw-creator-nums">
+          <div><b>186</b>作品</div>
+          <div><b>4.2万</b>关注</div>
+        </div>
+        <button class="dbw-creator-more dbw-author" data-author="阿棠的厨房" data-desc="投稿 186 期,以厨房固定机位与原声记录见长。第 611 期作品《灶台边的一小时》进入本期精品池首位。" data-works="186">查看作者简介 →</button>
+      </article>
+      <article class="dbw-creator">
+        <div class="dbw-creator-av" style="background:linear-gradient(140deg,#4fd6d0,#2f6b8f)">林</div>
+        <h3>林一舟</h3>
+        <div class="dbw-creator-field">城市探索 · 行业观察</div>
+        <p>投稿 143 期。习惯在清晨拍摄,认为城市最真实的部分发生在人少的时候。</p>
+        <div class="dbw-creator-nums">
+          <div><b>143</b>作品</div>
+          <div><b>3.6万</b>关注</div>
+        </div>
+        <button class="dbw-creator-more dbw-author" data-author="林一舟" data-desc="投稿 143 期,专注清晨时段的城市影像。代表作品《清晨六点,我跟着环卫车走完三条街》,获第 508 期专业评审推荐。" data-works="143">查看作者简介 →</button>
+      </article>
+      <article class="dbw-creator">
+        <div class="dbw-creator-av" style="background:linear-gradient(140deg,#8c7bff,#4a3fa8)">周</div>
+        <h3>周野手记</h3>
+        <div class="dbw-creator-field">人物访谈 · 手作 DIY</div>
+        <p>投稿 97 期。常做长访谈,认为「忍住不剪」是剪辑里最难的一课。</p>
+        <div class="dbw-creator-nums">
+          <div><b>97</b>作品</div>
+          <div><b>2.8万</b>关注</div>
+        </div>
+        <button class="dbw-creator-more dbw-author" data-author="周野手记" data-desc="投稿 97 期,以人物长访谈为主。作品《做了十二年木工,他说最难的是忍住不加装饰》被收录进官方访谈样本库。" data-works="97">查看作者简介 →</button>
+      </article>
+      <article class="dbw-creator">
+        <div class="dbw-creator-av" style="background:linear-gradient(140deg,#ff5a4e,#a8263c)">南</div>
+        <h3>南屿日记</h3>
+        <div class="dbw-creator-field">情感故事 · 日常记录</div>
+        <p>投稿 212 期。热衷记录家中旧物,作品常以一件器物作为叙事线索。</p>
+        <div class="dbw-creator-nums">
+          <div><b>212</b>作品</div>
+          <div><b>5.4万</b>关注</div>
+        </div>
+        <button class="dbw-creator-more dbw-author" data-author="南屿日记" data-desc="投稿 212 期,是平台连续投稿时长最长的创作者之一。作品多围绕家庭旧物与代际记忆展开,风格克制。" data-works="212">查看作者简介 →</button>
+      </article>
+      <article class="dbw-creator">
+        <div class="dbw-creator-av" style="background:linear-gradient(140deg,#a9c46c,#4f7d6b)">禾</div>
+        <h3>禾下乘凉</h3>
+        <div class="dbw-creator-field">治愈影像 · 生活方式</div>
+        <p>投稿 76 期。以阳台种植为线索,记录城市里的小规模种植实验。</p>
+        <div class="dbw-creator-nums">
+          <div><b>76</b>作品</div>
+          <div><b>1.9万</b>关注</div>
+        </div>
+        <button class="dbw-creator-more dbw-author" data-author="禾下乘凉" data-desc="投稿 76 期,聚焦城市阳台种植。其《在北阳台种了三年菜》系列被认为是低门槛生活影像的代表作。" data-works="76">查看作者简介 →</button>
+      </article>
+      <article class="dbw-creator">
+        <div class="dbw-creator-av" style="background:linear-gradient(140deg,#d7a15b,#8a5527)">陶</div>
+        <h3>陶小满</h3>
+        <div class="dbw-creator-field">手作 DIY · 创作幕后</div>
+        <p>投稿 58 期。坚持保留失败镜头,认为过程比成品更值得被记录。</p>
+        <div class="dbw-creator-nums">
+          <div><b>58</b>作品</div>
+          <div><b>1.3万</b>关注</div>
+        </div>
+        <button class="dbw-creator-more dbw-author" data-author="陶小满" data-desc="投稿 58 期,专注陶瓷手作。标志性做法是不剪掉失败过程,作品《拉坯失败七次之后》成为创作幕后类样本。" data-works="58">查看作者简介 →</button>
+      </article>
+      <article class="dbw-creator">
+        <div class="dbw-creator-av" style="background:linear-gradient(140deg,#5a6ea8,#26304f)">车</div>
+        <h3>车窗之外</h3>
+        <div class="dbw-creator-field">人物访谈 · 城市探索</div>
+        <p>投稿 64 期。关注交通与城市生活,常做跟车式长纪录。</p>
+        <div class="dbw-creator-nums">
+          <div><b>64</b>作品</div>
+          <div><b>2.1万</b>关注</div>
+        </div>
+        <button class="dbw-creator-more dbw-author" data-author="车窗之外" data-desc="投稿 64 期,擅长跟车长纪录。《公交司机的一天》以十小时素材剪成三分钟,获社区投票第一。" data-works="64">查看作者简介 →</button>
+      </article>
+      <article class="dbw-creator">
+        <div class="dbw-creator-av" style="background:linear-gradient(140deg,#4f7d6b,#a9c46c)">木</div>
+        <h3>木叶工坊</h3>
+        <div class="dbw-creator-field">手作 DIY · 知识科普</div>
+        <p>投稿 49 期。偏好工艺类科普,视频里常附材料清单与晒干时长。</p>
+        <div class="dbw-creator-nums">
+          <div><b>49</b>作品</div>
+          <div><b>1.1万</b>关注</div>
+        </div>
+        <button class="dbw-creator-more dbw-author" data-author="木叶工坊" data-desc="投稿 49 期,专注传统手工工艺科普。作品《用旧作业本重新造纸》以清晰的步骤拆解获得新人榜第一。" data-works="49">查看作者简介 →</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 故事 + 榜单 ================= -->
+<section class="dbw-section" id="dbw-story">
+  <div class="dbw-wrap">
+    <div class="dbw-head-row">
+      <div>
+        <span class="dbw-eyebrow">Stories & Ranking</span>
+        <h2 class="dbw-h2">品牌故事与本周<em>热度榜</em></h2>
+        <p class="dbw-lead">影像之外,我们也记录文字。以下四篇随笔由编辑团队撰写,与当期视频作品相互呼应。</p>
+      </div>
+    </div>
+    <div class="dbw-story-grid">
+      <div class="dbw-story">
+        <article class="dbw-story-item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23b83a1f'/%3E%3Ccircle cx='100' cy='86' r='40' fill='%23fff3d6' opacity='.7'/%3E%3Crect x='34' y='142' width='132' height='10' rx='5' fill='%23ffffff' opacity='.4'/%3E%3Crect x='52' y='162' width='96' height='8' rx='4' fill='%23ffffff' opacity='.25'/%3E%3C/svg%3E" alt="随笔配图:红色背景上的一团面粉">
+          <div>
+            <h3>先把面团揉好,再谈镜头</h3>
+            <p>很多新人问,为什么同样的题目,别人的片子看起来更「有味道」。答案往往不在设备,而在于他先把手上的事做完了,才开始拍。拍做饭就先做完饭,拍手作就先做完那个碗。</p>
+            <span>编辑随笔 · 关于创作的顺序 · 1,860 字</span>
+          </div>
+        </article>
+        <article class="dbw-story-item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23264a63'/%3E%3Cpath d='M0 140 L70 90 L120 130 L200 70 L200 200 L0 200 Z' fill='%234fd6d0' opacity='.5'/%3E%3Ccircle cx='150' cy='54' r='22' fill='%23ffc63c' opacity='.85'/%3E%3C/svg%3E" alt="随笔配图:蓝色调的山线与太阳">
+          <div>
+            <h3>在早高峰之前,城市属于另一批人</h3>
+            <p>连续三周,编辑部把拍摄时间提前到清晨五点半。我们发现,同一个街角在六点与八点之间,像是两座不同的城市。这个观察后来变成了第 508 期题目。</p>
+            <span>编辑随笔 · 关于观察的时机 · 2,240 字</span>
+          </div>
+        </article>
+        <article class="dbw-story-item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%234a3fa8'/%3E%3Crect x='40' y='50' width='120' height='100' rx='10' fill='%238c7bff' opacity='.55'/%3E%3Ccircle cx='100' cy='100' r='26' fill='none' stroke='%23ffc63c' stroke-width='4'/%3E%3C/svg%3E" alt="随笔配图:紫色背景中的取景框">
+          <div>
+            <h3>克制一点,再克制一点</h3>
+            <p>我们统计了过去 100 期精品池作品,发现平均镜头数不到 14 个,旁白覆盖率仅 38%。数据说明了一件事:观众并不缺信息,缺的是被尊重的时间。</p>
+            <span>编辑随笔 · 关于剪辑的选择 · 1,520 字</span>
+          </div>
+        </article>
+        <article class="dbw-story-item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23375c46'/%3E%3Cpath d='M100 170 L100 70' stroke='%23a9c46c' stroke-width='8'/%3E%3Ccircle cx='100' cy='58' r='30' fill='%23a9c46c' opacity='.7'/%3E%3Cpath d='M100 120 Q140 100 156 76' stroke='%23ffffff' stroke-width='5' fill='none' opacity='.5'/%3E%3C/svg%3E" alt="随笔配图:绿色背景中的一株幼苗">
+          <div>
+            <h3>第 100 期和第 600 期,是同一个人</h3>
+            <p>我们回访了最早一批投稿者。六年过去,有人换了城市,有人换了职业,但仍在每周投稿。平台的价值也许就在这里:它不承诺结果,只承诺每天都在。</p>
+            <span>编辑随笔 · 关于长期主义 · 2,760 字</span>
+          </div>
+        </article>
+      </div>
+      <aside class="dbw-rank">
+        <h3>本周热度榜 · 每日爆料大赛</h3>
+        <ol>
+          <li><span class="dbw-rank-num">1</span><a href="#dbw-flow">灶台边的一小时:红烧肉的收汁声</a><b>2.3万</b></li>
+          <li><span class="dbw-rank-num">2</span><a href="#dbw-flow">菜市场卖了二十年豆腐的阿姨</a><b>2.1万</b></li>
+          <li><span class="dbw-rank-num">3</span><a href="#dbw-flow">这条老街拆之前,我拍了十二家店</a><b>1.9万</b></li>
+          <li><span class="dbw-rank-num">4</span><a href="#dbw-flow">凌晨两点半的便利店收银员</a><b>1.7万</b></li>
+          <li><span class="dbw-rank-num">5</span><a href="#dbw-flow">公交司机的一天:最怕没人按铃</a><b>1.5万</b></li>
+          <li><span class="dbw-rank-num">6</span><a href="#dbw-flow">用冰箱剩下四样东西做一碗面</a><b>1.3万</b></li>
+          <li><span class="dbw-rank-num">7</span><a href="#dbw-flow">拉坯失败七次之后的一个碗</a><b>1.2万</b></li>
+          <li><span class="dbw-rank-num">8</span><a href="#dbw-flow">连续写了 400 天日记的一天</a><b>1.1万</b></li>
+        </ol>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 用户评价 ================= -->
+<section class="dbw-section dbw-voices" id="dbw-voices">
+  <div class="dbw-wrap">
+    <div class="dbw-head-row">
+      <div>
+        <span class="dbw-eyebrow">Community Voices</span>
+        <h2 class="dbw-h2">社区评价:他们怎么说<em>每日大赛</em></h2>
+        <p class="dbw-lead">以下内容来自投稿页留言与线下活动的现场反馈,已获作者授权展示。</p>
+      </div>
+    </div>
+    <div class="dbw-voices-grid">
+      <article class="dbw-voice">
+        <p>第一次投稿是在第 480 期,题目是「你家的窗台」。我以为拍得很一般,结果收到三条长评论,有人认真指出我收音没做好。那种被认真对待的感觉,很少在别的平台遇到。</p>
+        <div class="dbw-voice-foot">
+          <span class="dbw-avatar" style="background:#ffc63c">苏</span>
+          <div><b>苏打水不加冰</b><span>投稿 67 期 · 日常记录</span></div>
+        </div>
+      </article>
+      <article class="dbw-voice">
+        <p>作为中学老师,我把每日爆料大赛当成课堂素材。题目短、要求具体,学生完成度比我自己想的高很多。最重要的是,它教会孩子先观察再表达。</p>
+        <div class="dbw-voice-foot">
+          <span class="dbw-avatar" style="background:#4fd6d0">陈</span>
+          <div><b>陈老师的课</b><span>投稿 24 期 · 知识科普</span></div>
+        </div>
+      </article>
+      <article class="dbw-voice">
+        <p>赛制规则写得很清楚,评审标准也公开。被拒稿时会收到简短说明,虽然只有两三句,但真的有用。这一点比很多比赛都专业,值得信赖。</p>
+        <div class="dbw-voice-foot">
+          <span class="dbw-avatar" style="background:#8c7bff">N</span>
+          <div><b>Nina_光影</b><span>投稿 112 期 · 艺术美学</span></div>
+        </div>
+      </article>
+      <article class="dbw-voice">
+        <p>我最喜欢的是「失败集锦」这个固定小栏目。它让大家看到,拍得不成功也是很正常的过程。这种包容对新人来说非常重要,能撑过前三个月的人,基本都会留下来。</p>
+        <div class="dbw-voice-foot">
+          <span class="dbw-avatar" style="background:#ff5a4e">李</span>
+          <div><b>李不太忙</b><span>投稿 39 期 · 创作幕后</span></div>
+        </div>
+      </article>
+      <article class="dbw-voice">
+        <p>我们是一支三个人的小团队,靠每日大赛的题目练手。每周固定做三期,半年下来工作室的交付速度提升很明显。企业动态里那些数据观察也很有参考价值。</p>
+        <div class="dbw-voice-foot">
+          <span class="dbw-avatar" style="background:#a9c46c">徐</span>
+          <div><b>徐工坊三人组</b><span>投稿 88 期 · 手作 DIY</span></div>
+        </div>
+      </article>
+      <article class="dbw-voice">
+        <p>作为一个五十多岁的投稿者,我一开始担心没人看。结果评论区很多年轻人说想起了自己的父母。这让我觉得,真实的故事确实有力量,年龄不是门槛。</p>
+        <div class="dbw-voice-foot">
+          <span class="dbw-avatar" style="background:#d7a15b">王</span>
+          <div><b>老王家的院子</b><span>投稿 51 期 · 情感故事</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 灵感 / 动态 ================= -->
+<section class="dbw-section" id="dbw-updates">
+  <div class="dbw-wrap">
+    <div class="dbw-duo dbw-one-col">
+      <div>
+        <span class="dbw-eyebrow">Creator Toolkit</span>
+        <h2 class="dbw-h2">创作灵感:给下一次<em>投稿</em>的起点</h2>
+        <p class="dbw-lead" style="margin-bottom:22px">来自编辑部的方法摘要,不提供模板,只提供思路。</p>
+        <div class="dbw-idea">
+          <div class="dbw-idea-item">
+            <b>选题:把「大题目」缩成一个动作</b>
+            <p>遇到抽象的题目时,先问自己:这件事最小的具体动作是什么?「陪伴」可以是一次剥橘子,「成长」可以是一次系鞋带。动作越具体,镜头越好落。</p>
+          </div>
+          <div class="dbw-idea-item">
+            <b>结构:开头三秒先给声音</b>
+            <p>画面还没出现时,先让观众听见环境声。锅铲、脚步、雨声,这些声音比任何旁白都更快建立现场感,也更符合真实记录的气质。</p>
+          </div>
+          <div class="dbw-idea-item">
+            <b>剪辑:保留一次「不完美」</b>
+            <p>不要把所有失误剪掉。留下一次停顿、一次口误或一次镜头晃动,作品会更有呼吸感。精品池里大量作品都保留了这类细节。</p>
+          </div>
+          <div class="dbw-idea-item">
+            <b>标题:写清楚你拍到了什么</b>
+            <p>避免抽象形容词,直接写清对象与动作。例如「她给每一盏旧灯换上了新灯泡」,比「温暖的午后」更有信息量,也更容易被检索。</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="dbw-eyebrow">Official Updates</span>
+        <h2 class="dbw-h2">企业动态与官方发布</h2>
+        <p class="dbw-lead" style="margin-bottom:22px">赛制调整、功能上线与合作进展,均在此栏目首发。</p>
+        <div class="dbw-timeline">
+          <div class="dbw-timeline-item">
+            <time>2026 · 11 · 19</time>
+            <h3>第 611 期题目发布:回忆里的一件小物</h3>
+            <p>本期新增「声音优先」推荐位,鼓励以环境声为主的投稿。截止时间当日 24:00,次日 18:00 公布精品池。</p>
+          </div>
+          <div class="dbw-timeline-item">
+            <time>2026 · 11 · 15</time>
+            <h3>投稿通道升级:支持直接上传与链接提交</h3>
+            <p>为方便不同设备的创作者,投稿页同时保留两种方式,并新增草稿自动保存。上传失败的提示文案也已重写,更明确地告知原因。</p>
+          </div>
+          <div class="dbw-timeline-item">
+            <time>2026 · 11 · 08</time>
+            <h3>冬季创作挑战开启报名</h3>
+            <p>为期六周的连续命题企划,报名即获得往期专题的完整攻略包。挑战不设淘汰,完成全部六期即可进入年度创作者名单候选。</p>
+          </div>
+          <div class="dbw-timeline-item">
+            <time>2026 · 10 · 30</time>
+            <h3>发布第三季度内容观察报告</h3>
+            <p>报告统计了题材分布、平均时长与叙事结构变化,并首次加入「失败镜头保留率」这一指标。报告全文可在帮助中心查阅。</p>
+          </div>
+          <div class="dbw-timeline-item">
+            <time>2026 · 10 · 12</time>
+            <h3>与三家社区文化机构达成内容合作</h3>
+            <p>合作将围绕在地文化记录展开,共同发起面向公众的影像工作坊,相关活动会在动态中持续更新。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="dbw-faq" id="dbw-faq">
+      <span class="dbw-eyebrow">FAQ</span>
+      <h2 class="dbw-h2">常见问题:关于<em>每日爆料大赛</em></h2>
+      <div class="dbw-faq-list">
+        <details open>
+          <summary>完全没有拍摄经验,可以参加每日大赛吗?</summary>
+          <p>可以。题目设计刻意降低门槛,大部分作品用手机即可完成。官方在帮助中心提供了基础拍摄清单,建议第一次投稿时长控制在 30 秒至 1 分钟,先完成再优化。</p>
+        </details>
+        <details>
+          <summary>投稿有时间限制吗?错过了当天的题目怎么办?</summary>
+          <p>每期题目当日 24:00 截止,次日公布结果。错过当天的题目不影响后续参与,系统会在次日 20:00 发布新题目。往期题目仍可作为练习使用,但不进入当期评审。</p>
+        </details>
+        <details>
+          <summary>作品版权归谁?官方会用于商业用途吗?</summary>
+          <p>作品著作权归创作者所有。投稿即视为授权官方在品牌宣传范围内展示与引用,如涉及商业合作会单独取得授权并签署协议。相关条款在投稿页勾选确认处可查看全文。</p>
+        </details>
+        <details>
+          <summary>评审标准具体包含哪些维度?</summary>
+          <p>评审分为三个维度:具体性(是否拍到明确的细节)、完成度(叙事是否完整)、真实感(表达是否自然)。三个维度权重相当,不设题材偏好,也不以设备规格作为加分项。</p>
+        </details>
+        <details>
+          <summary>如何查看自己作品是否进入精品内容池?</summary>
+          <p>进入精品池的作品会在次日公布页面展示,同时在个人主页收到站内通知。未入选的作品不会公开展示失败原因全文,但会给出简短反馈方向,可据此改进下一次投稿。</p>
+        </details>
+        <details>
+          <summary>可以重复投稿同一个题目吗?</summary>
+          <p>同一期题目可以提交多条作品,但进入评审的仅为最后提交的一条。我们建议把精力放在一条作品上,反复打磨比多投更有效。</p>
+        </details>
+        <details>
+          <summary>机构或品牌方如何与每日大赛合作?</summary>
+          <p>可通过页面底部的联系入口提交合作意向,注明机构名称、合作方向与预期形式。官方会在三个工作日内回复,并视情况安排线上沟通。合作内容需符合平台的品质与真实原则。</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 合作与联系 -->
+    <div class="dbw-partners">
+      <div>城市影像档案馆</div>
+      <div>青禾社区文化中心</div>
+      <div>邻街手作联盟</div>
+      <div>慢食研究会</div>
+      <div>校际影像社</div>
+      <div>城南图书馆</div>
+    </div>
+
+    <div class="dbw-contact">
+      <div>
+        <h3>把你的下一次爆料,交给每日大赛</h3>
+        <p>投稿、合作、反馈或建议,都可以从这里开始。官方邮箱与投稿入口同时在线,工作日内会逐一回复。</p>
+      </div>
+      <div class="dbw-contact-btns">
+        <button class="dbw-btn dbw-btn-primary" id="dbwSubmitOpen2">打开投稿入口</button>
+        <button class="dbw-btn dbw-btn-ghost" id="dbwContactOpen">合作与联系</button>
+        <button class="dbw-btn dbw-btn-ghost dbw-share" data-share="page">分享本页</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 页脚 ================= -->
+<footer class="dbw-footer">
+  <div class="dbw-wrap">
+    <div class="dbw-footer-grid">
+      <div>
+        <div class="dbw-logo" style="margin-bottom:14px">
+          <span class="dbw-logo-mark">每</span>
+          <span class="dbw-logo-txt"><strong>每日大赛</strong><span>DAILY CONTEST</span></span>
+        </div>
+        <p>每日大赛官方网站 · 每日爆料大赛官方发布平台。以每日一题的轻量赛事,持续运营原创内容生态,陪伴创作者完成从第一次投稿到长期记录的过程。</p>
+      </div>
+      <div class="dbw-footer-col">
+        <h4>内容</h4>
+        <ul>
+          <li><a href="#dbw-focus">焦点内容</a></li>
+          <li><a href="#dbw-flow">每日爆料</a></li>
+          <li><a href="#dbw-special">专题企划</a></li>
+          <li><a href="#dbw-story">品牌故事</a></li>
+        </ul>
+      </div>
+      <div class="dbw-footer-col">
+        <h4>社区</h4>
+        <ul>
+          <li><a href="#dbw-creators">创作者矩阵</a></li>
+          <li><a href="#dbw-voices">社区评价</a></li>
+          <li><a href="#dbw-updates">企业动态</a></li>
+          <li><a href="#dbw-faq">帮助中心</a></li>
+        </ul>
+      </div>
+      <div class="dbw-footer-col">
+        <h4>联系</h4>
+        <ul>
+          <li><a href="#dbw-faq">投稿指南</a></li>
+          <li><a href="#dbw-updates">合作咨询</a></li>
+          <li><a href="#dbw-voices">反馈建议</a></li>
+          <li><a href="#dbw-about">关于我们</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="dbw-footer-bottom">
+      <span>每日大赛官方网站 · 版权所有 · 持续运营中</span>
+      <span>内容均为原创正版 · 高清展示 · 企业信息以官方发布为准 · 备案号示例:字 20261119 号</span>
+    </div>
+  </div>
+</footer>
+
+<button class="dbw-top" id="dbwTop" aria-label="回到顶部">↑</button>
+<div class="dbw-toast" id="dbwToast" role="status" aria-live="polite"></div>
+
+<!-- 作者弹窗 -->
+<div class="dbw-modal" id="dbwAuthorModal">
+  <div class="dbw-modal-box" style="position:relative">
+    <button class="dbw-act dbw-modal-close" data-close="dbwAuthorModal" aria-label="关闭">✕</button>
+    <h3 id="dbwAuthorName">作者</h3>
+    <p class="dbw-modal-sub" id="dbwAuthorWorks">作品数</p>
+    <p id="dbwAuthorDesc" style="font-size:13.5px;color:#c3cde3;line-height:1.9"></p>
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="dbw-btn dbw-btn-primary dbw-share" data-share="author">分享作者主页</button>
+      <button class="dbw-btn dbw-btn-ghost" data-close="dbwAuthorModal">收起</button>
+    </div>
+  </div>
+</div>
+
+<!-- 投稿弹窗 -->
+<div class="dbw-modal" id="dbwSubmitModal">
+  <div class="dbw-modal-box" style="position:relative">
+    <button class="dbw-act dbw-modal-close" data-close="dbwSubmitModal" aria-label="关闭">✕</button>
+    <h3>投稿入口</h3>
+    <p class="dbw-modal-sub">填写基础信息即可提交,官方会在次日 18:00 前给出结果反馈。</p>
+    <form id="dbwSubmitForm">
+      <div class="dbw-field">
+        <label for="dbwSubName">创作者昵称</label>
+        <input id="dbwSubName" type="text" placeholder="例如:阿棠的厨房" required>
+      </div>
+      <div class="dbw-field">
+        <label for="dbwSubTitle">投稿标题</label>
+        <input id="dbwSubTitle" type="text" placeholder="写清楚你拍到了什么" required>
+      </div>
+      <div class="dbw-field">
+        <label for="dbwSubCat">题材方向</label>
+        <select id="dbwSubCat">
+          <option>日常记录</option>
+          <option>城市探索</option>
+          <option>手作 DIY</option>
+          <option>人物访谈</option>
+          <option>美食烹饪</option>
+          <option>情感故事</option>
+          <option>其他</option>
+        </select>
+      </div>
+      <div class="dbw-field">
+        <label for="dbwSubLink">作品链接或上传说明</label>
+        <textarea id="dbwSubLink" placeholder="支持粘贴外部链接,或说明文件上传方式"></textarea>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="dbw-btn dbw-btn-primary" type="submit">提交投稿</button>
+        <button class="dbw-btn dbw-btn-ghost" type="button" data-close="dbwSubmitModal">取消</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 联系弹窗 -->
+<div class="dbw-modal" id="dbwContactModal">
+  <div class="dbw-modal-box" style="position:relative">
+    <button class="dbw-act dbw-modal-close" data-close="dbwContactModal" aria-label="关闭">✕</button>
+    <h3>合作与联系</h3>
+    <p class="dbw-modal-sub">工作日内回复,合作请注明机构与方向。</p>
+    <div class="dbw-modal-contact">
+      <div>官方邮箱:<b>hello@dailycontest.example</b></div>
+      <div>合作邮箱:<b>partner@dailycontest.example</b></div>
+      <div>工作时间:<b>周一至周五 10:00 - 19:00</b></div>
+      <div>投稿咨询:<b>进入投稿页留言即可</b></div>
+    </div>
+    <div style="margin-top:18px">
+      <button class="dbw-btn dbw-btn-primary" data-close="dbwContactModal">知道了</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Toast ---------- */
+  var toast = document.getElementById('dbwToast');
+  var toastTimer = null;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('on'); }, 2100);
+  }
+
+  /* ---------- 复制链接 / 分享 ---------- */
+  function copyText(text){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){
+        showToast('链接已复制,欢迎分享给同好');
+      }).catch(function(){
+        showToast('分享内容已准备好,请手动复制');
+      });
+    }else{
+      showToast('分享内容已准备好,请手动复制');
+    }
+  }
+  function handleShare(el){
+    var type = el.getAttribute('data-share');
+    if(type === 'author'){
+      showToast('作者主页分享链接已生成');
+      copyText('每日大赛 创作者主页 - 官方发布');
+      return;
+    }
+    showToast('已生成分享信息,可粘贴到微信、微博或 QQ');
+    copyText('每日大赛 每日爆料大赛 · 官方赛事平台');
+  }
+
+  /* ---------- 点赞 / 收藏 ---------- */
+  document.addEventListener('click', function(e){
+    var likeBtn = e.target.closest('.dbw-like');
+    if(likeBtn){
+      var num = likeBtn.querySelector('b');
+      var n = parseInt(likeBtn.getAttribute('data-likes') || num.textContent, 10);
+      if(likeBtn.classList.contains('liked')){
+        n = Math.max(0, n - 1);
+        likeBtn.classList.remove('liked');
+        showToast('已取消点赞');
+      }else{
+        n = n + 1;
+        likeBtn.classList.add('liked');
+        showToast('点赞成功,感谢你的反馈');
+      }
+      likeBtn.setAttribute('data-likes', n);
+      num.textContent = n;
+      return;
+    }
+    var saveBtn = e.target.closest('.dbw-save');
+    if(saveBtn){
+      if(saveBtn.classList.contains('saved')){
+        saveBtn.classList.remove('saved');
+        saveBtn.textContent = '☆';
+        showToast('已取消收藏');
+      }else{
+        saveBtn.classList.add('saved');
+        saveBtn.textContent = '★';
+        showToast('已加入收藏夹');
+      }
+      return;
+    }
+    var shareBtn = e.target.closest('.dbw-share');
+    if(shareBtn){
+      handleShare(shareBtn);
+      return;
+    }
+  });
+
+  /* ---------- 移动端导航 ---------- */
+  var burger = document.getElementById('dbwBurger');
+  var nav = document.getElementById('dbwNav');
+  if(burger && nav){
+    burger.addEventListener('click', function(){
+      var open = nav.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.addEventListener('click', function(e){
+      if(e.target.tagName === 'A' && window.innerWidth <= 1000){
+        nav.classList.remove('open');
+        burger.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  /* ---------- 搜索反馈 ---------- */
+  var searchInput = document.getElementById('dbwSearchInput');
+  var searchBtn = document.getElementById('dbwSearchBtn');
+  var searchFb = document.getElementById('dbwSearchFb');
+  var searchPool = [
+    '每日爆料大赛 今日题目','灶台边的一小时','城市探索 清晨六点','手作 DIY 拉坯',
+    '人物访谈 菜市场','美食烹饪 深夜汤面','情感故事 旧物','创作者 阿棠的厨房',
+    '专题 一日一餐','专题 窗口计划','投稿指南','冬季创作挑战'
+  ];
+  function doSearch(){
+    var kw = (searchInput.value || '').trim();
+    if(!kw){
+      searchFb.innerHTML = '请输入关键词,例如「<b>城市探索</b>」或「<b>手作</b>」';
+      searchFb.classList.add('on');
+      return;
+    }
+    var hit = searchPool.filter(function(item){ return item.indexOf(kw) > -1; });
+    if(hit.length){
+      searchFb.innerHTML = '找到 <b>' + hit.length + '</b> 条相关内容:' + hit.slice(0,3).join('、');
+    }else{
+      searchFb.innerHTML = '暂未匹配到「<b>' + kw + '</b>」,可尝试「日常记录」「人物访谈」等题材词';
+    }
+    searchFb.classList.add('on');
+  }
+  if(searchBtn){
+    searchBtn.addEventListener('click', doSearch);
+    searchInput.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); doSearch(); }
+    });
+    searchInput.addEventListener('focus', function(){
+      if(!searchFb.textContent){ doSearch(); }
+    });
+    document.addEventListener('click', function(e){
+      if(!e.target.closest('.dbw-search')){ searchFb.classList.remove('on'); }
+    });
+  }
+
+  /* ---------- 题材筛选 ---------- */
+  var filterWrap = document.getElementById('dbwFilter');
+  if(filterWrap){
+    filterWrap.addEventListener('click', function(e){
+      var btn = e.target.closest('button[data-filter]');
+      if(!btn) return;
+      var cat = btn.getAttribute('data-filter');
+      filterWrap.querySelectorAll('button').forEach(function(b){ b.classList.remove('on'); });
+      btn.classList.add('on');
+      document.querySelectorAll('#dbwFlow .dbw-card').forEach(function(card){
+        var show = (cat === 'all') || (card.getAttribute('data-cat') === cat);
+        card.setAttribute('data-hidden', show ? '0' : '1');
+      });
+      showToast(cat === 'all' ? '已显示全部题材' : '已筛选:' + btn.textContent);
+    });
+  }
+
+  /* ---------- 弹窗控制 ---------- */
+  function openModal(id){
+    var m = document.getElementById(id);
+    if(m){ m.classList.add('on'); }
+  }
+  document.querySelectorAll('[data-close]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var m = document.getElementById(btn.getAttribute('data-close'));
+      if(m){ m.classList.remove('on'); }
+    });
+  });
+  document.querySelectorAll('.dbw-modal').forEach(function(m){
+    m.addEventListener('click', function(e){
+      if(e.target === m){ m.classList.remove('on'); }
+    });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      document.querySelectorAll('.dbw-modal.on').forEach(function(m){ m.classList.remove('on'); });
+    }
+  });
+
+  /* ---------- 作者弹窗 ---------- */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('.dbw-author');
+    if(!a) return;
+    document.getElementById('dbwAuthorName').textContent = a.getAttribute('data-author');
+    document.getElementById('dbwAuthorWorks').textContent = '累计投稿 ' + a.getAttribute('data-works') + ' 期 · 官方认证创作者';
+    document.getElementById('dbwAuthorDesc').textContent = a.getAttribute('data-desc');
+    openModal('dbwAuthorModal');
+  });
+
+  /* ---------- 投稿 / 联系 ---------- */
+  var s1 = document.getElementById('dbwSubmitOpen');
+  var s2 = document.getElementById('dbwSubmitOpen2');
+  if(s1){ s1.addEventListener('click', function(){ openModal('dbwSubmitModal'); }); }
+  if(s2){ s2.addEventListener('click', function(){ openModal('dbwSubmitModal'); }); }
+  var c1 = document.getElementById('dbwContactOpen');
+  if(c1){ c1.addEventListener('click', function(){ openModal('dbwContactModal'); }); }
+
+  var form = document.getElementById('dbwSubmitForm');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = document.getElementById('dbwSubName').value.trim();
+      var title = document.getElementById('dbwSubTitle').value.trim();
+      if(!name || !title){
+        showToast('请先填写昵称与投稿标题');
+        return;
+      }
+      showToast('投稿已提交:' + title);
+      form.reset();
+      document.getElementById('dbwSubmitModal').classList.remove('on');
+    });
+  }
+
+  /* ---------- 回到顶部 ---------- */
+  var topBtn = document.getElementById('dbwTop');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 520){ topBtn.classList.add('on'); }
+    else{ topBtn.classList.remove('on'); }
+  }, {passive:true});
+  topBtn.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  /* ---------- 数字滚动 ---------- */
+  var counted = false;
+  function runCount(){
+    if(counted) return;
+    counted = true;
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var start = performance.now();
+      var dur = 1200;
+      function step(now){
+        var p = Math.min(1, (now - start) / dur);
+        var val = Math.floor(target * (0.2 + 0.8 * p));
+        el.textContent = (target >= 1000 ? val.toLocaleString('en-US') : val) + suffix;
+        if(p < 1){ requestAnimationFrame(step); }
+        else{
+          el.textContent = (target >= 1000 ? target.toLocaleString('en-US') : target) + suffix;
+        }
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  if('IntersectionObserver' in window){
+    var statEl = document.querySelector('.dbw-stats');
+    if(statEl){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(en.isIntersecting){ runCount(); io.disconnect(); }
+        });
+      }, {threshold:0.3});
+      io.observe(statEl);
+    }
+  }else{
+    runCount();
+  }
+
+  /* ---------- 锚点偏移补偿(吸顶高度) ---------- */
+  document.querySelectorAll('a[href^="#dbw-"]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      var id = link.getAttribute('href').slice(1);
+      var target = document.getElementById(id);
+      if(!target) return;
+      e.preventDefault();
+      var sticky = document.querySelector('.dbw-sticky');
+      var offset = sticky ? sticky.offsetHeight + 10 : 90;
+      var top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({top: top, behavior:'smooth'});
+    });
+  });
+
+})();
+</script>
+</body>
+  </html>
